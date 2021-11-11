@@ -6,6 +6,7 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 
 const express = require("express");
+const indexRouter = require("./router");
 const app = express();
 
 const HTTP_PORT = process.env.HTTP_PORT || 80;
@@ -22,9 +23,13 @@ app.use(
 );
 app.use(cookieParser());
 
+// * 기본 기능 테스팅
 app.get("/", (req, res) => {
   res.status(200).send("hello!");
 });
+
+// * router 연결
+app.use("/", indexRouter);
 
 // ! 아래는 토큰 관련 함수를 테스트하기 위한 라우트 ~ @end 까지
 // 아래 코드는 추후 재활용 또는 폐기 하도록 하겠습니다.
@@ -57,6 +62,7 @@ app.get("/", (req, res) => {
 
 // !@end 여기서 테스트 기능 종료
 
+// * 서버 listen 코드
 let server;
 if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
   const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
