@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destinations: /home/ubuntu/Webmarker
+    destination: /home/ubuntu/Webmarker
 
 hooks:
   ApplicationStop:
