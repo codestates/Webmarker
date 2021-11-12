@@ -1,18 +1,9 @@
 function AddBookmark() {
-	return (
-		<article
-			style={{
-				border: "1px solid black",
-				background: "white",
-				color: "black",
-				margin: "5px",
-			}}
-		>
-			<div>
-				<button>+</button>
-			</div>
-		</article>
-	);
+  return (
+    <article className="addbookmark">
+      <button className="addbookmark-btn">+</button>
+    </article>
+  );
 }
 
 export default AddBookmark;
