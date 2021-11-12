@@ -9,7 +9,7 @@ const express = require("express");
 const indexRouter = require("./router");
 const app = express();
 
-const HTTP_PORT = process.env.HTTP_PORT || 80;
+const HTTP_PORT = process.env.HTTP_PORT || 8080;
 const HTTPS_PORT = process.env.HTTPS_PORT || 443;
 
 app.use(logger("dev"));
