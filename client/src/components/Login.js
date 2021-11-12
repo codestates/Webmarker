@@ -50,7 +50,7 @@ export default function Login() {
           </button>
         </div>
       </form>
-      <div>
+      <div className="login-text-section">
         <div className="login-text-wrapper">
           <Link to="/signup">
             <span className="login-text">아이디가 없으신가요?</span>
