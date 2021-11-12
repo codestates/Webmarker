@@ -40,7 +40,7 @@ function SignUpPage() {
     if (signUpInfo.password === signUpInfo.passwordCheck) {
       console.log("회원가입 성공!");
       axios
-        .post("http://webmarker/user/login", {
+        .post("http://webmarker/user/signup", {
           email: signUpInfo.id,
           password: signUpInfo.password,
         })
@@ -89,39 +89,3 @@ function SignUpPage() {
 }
 
 export default SignUpPage;
-
-//   const [error, setError] = useState(false);
-//   const [errorMessage, setErrorMessage] = useState("");
-
-//   const [signUpId, setSignUpId] = useState("");
-//   const [signUpPw, setSignUpPw] = useState("");
-//   const [signUpPwCheck, setSignUpPwCheck] = useState("");
-
-//   const handleIdValue = (e) => {
-//     setSignUpId(e.target.value);
-//   };
-
-//   const handlePwValue = (e) => {
-//     console.log(e.target.value);
-//     setSignUpPw(e.target.value);
-//   };
-
-// let pw = JSON.parse(JSON.stringify(signUpInfo.password));
-// let pwCheck = JSON.parse(JSON.stringify(signUpInfo.passwordCheck));4
-
-//   const handlePwCheckValue = (e) => {
-//     setSignUpPwCheck(e.target.value);
-//     console.log(signUpPwCheck);
-
-//     if (signUpPw === signUpPwCheck) {
-//       setError(false);
-//       setErrorMessage("");
-//     } else {
-//       setError(true);
-//       setErrorMessage("비밀번호가 일치하지 않습니다");
-//     }
-//   };
-
-{
-  /* {error ? <div> {errorMessage} </div> : ""} */
-}
