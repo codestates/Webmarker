@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+  background-color: #fdfdfd;
+}
+
+/* @font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+/* 로그인 페이지 CSS */
+#login-page {
+  margin-top: 10.5rem;
+}
+
+#login-logo {
+  width: 18%;
+}
+
+.login-box {
+  width: 15%;
+  height: 2.4rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.login-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+#login-btn {
+  width: 15%;
+  height: 2.4rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.login-text-wrapper {
+  margin: 0.5rem 0.5rem;
+}
+
+.login-text {
+  text-decoration: none;
+  color: #717171;
+  font-size: 1rem;
+}
+
+.login-text:hover {
+  color: #641eac;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #4c4c4c;
+  text-decoration: none;
+}
+
+#footer {
+  margin-top: 14rem;
+}
+
+#footer-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.footer-text {
+  color: #717171;
+  font-size: 0.9rem;
+}
+
+/* 회원가입 페이지 CSS */
+#signup-wrapper {
+  margin-top: 16rem;
+}
+
+#signup-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.3rem 0.3rem;
+}
+
+.signup-box {
+  width: 17%;
+  height: 3rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.signup-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+.signup-btn {
+  width: 8.2%;
+  height: 2.4rem;
+  margin: 0.3rem 0.4rem 9.45rem 0.4rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+/* 회원정보 페이지 CSS */
+#userinfo-wrapper {
+  margin-top: 15rem;
+}
+
+#userinfo-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.3rem 0.3rem;
+}
+
+.userinfo-box {
+  width: 17%;
+  height: 3rem;
+  padding: 0.9rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+  text-align: justify;
+}
+
+.userinfo-password-box {
+  width: 17%;
+  height: 3rem;
+  padding: 0.9rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.userinfo-password-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+.userifn-btn {
+  width: 8.2%;
+  height: 2.4rem;
+  margin: 0.3rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}

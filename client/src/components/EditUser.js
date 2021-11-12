@@ -8,6 +8,7 @@ export default function EditUser({ handlePassword, handleChangePassowrd }) {
     <form onSubmit={(e) => e.preventDefault()}>
       <div>
         <input
+          className="userinfo-password-box"
           type="password"
           placeholder="변경할 Password"
           onChange={handlePassword("newPassword")}
@@ -15,13 +16,16 @@ export default function EditUser({ handlePassword, handleChangePassowrd }) {
       </div>
       <div>
         <input
+          className="userinfo-password-box"
           type="password"
           placeholder="변경할 Password 확인"
           onChange={handlePassword("newPasswordCheck")}
         ></input>
       </div>
       <div>
-        <button onClick={handleChangePassowrd}>비밀번호변경</button>
+        <button className="userifn-btn" onClick={handleChangePassowrd}>
+          비밀번호변경
+        </button>
       </div>
     </form>
   );
