@@ -32,6 +32,7 @@ export default function Login() {
           <input
             type="email"
             placeholder="username"
+            className="login-box"
             onChange={() => handleInputValue("email")}
           ></input>
         </div>
@@ -39,18 +40,25 @@ export default function Login() {
           <input
             type="password"
             placeholder="password"
+            className="login-box"
             onChange={handleInputValue("password")}
           ></input>
         </div>
         <div>
-          <button onClick={handleLogin}>Login</button>
+          <button id="login-btn" onClick={handleLogin}>
+            로그인
+          </button>
         </div>
       </form>
       <div>
-        <Link to="/signup">
-          <div classNAme="login-text">아이디가 없으신가요?</div>
-        </Link>
-        <div classNAme="login-text">비밀번호를 잊어버리셨나요?</div>
+        <div className="login-text-wrapper">
+          <Link to="/signup">
+            <span className="login-text">아이디가 없으신가요?</span>
+          </Link>
+        </div>
+        <div className="login-text-wrapper">
+          <span className="login-text">비밀번호를 잊어버리셨나요?</span>
+        </div>
       </div>
     </center>
   );

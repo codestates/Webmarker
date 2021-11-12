@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 axios.defaults.withCredentials = true;
 
@@ -52,11 +53,12 @@ function SignUpPage() {
   //회원가입 서버에 요청하는 함수
 
   return (
-    <center>
-      <div>WebMarker 회원가입</div>
+    <center id="signup-wrapper">
+      <div id="signup-title">WebMarker 회원가입</div>
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <input
+            className="signup-box"
             type="email"
             placeholder="username"
             onChange={handleSignUpValue("email")}
@@ -64,6 +66,7 @@ function SignUpPage() {
         </div>
         <div>
           <input
+            className="signup-box"
             type="password"
             placeholder="password"
             onChange={handleSignUpValue("password")}
@@ -71,19 +74,23 @@ function SignUpPage() {
         </div>
         <div>
           <input
+            className="signup-box"
             type="password"
             placeholder="password 확인"
             onChange={handleSignUpValue("passwordCheck")}
           ></input>
           {renderFeedbackMessage()}
         </div>
-        <div>
-          <button onClick={handleSignUp}>회원가입</button>
+        <div id="signup-btn-wrapper">
+          <button className="signup-btn" onClick={handleSignUp}>
+            회원가입
+          </button>
           <Link to="/">
-            <button onClick={handleSignUp}>홈으로</button>
+            <button className="signup-btn">홈으로</button>
           </Link>
         </div>
       </form>
+      <Footer />
     </center>
   );
 }

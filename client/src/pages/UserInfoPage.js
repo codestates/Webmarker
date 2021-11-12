@@ -38,30 +38,36 @@ function UserInfoPage() {
   //비밀번호 변경 요청하는 함수
 
   return (
-    <center>
-      <div>WebMarker 회원정보</div>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div>
-          <span>email 정보 표기</span>
-        </div>
-        <div>
-          <input type="password" placeholder="현재 password"></input>
-        </div>
-        <div>
-          <button onClick={checkPassword}>비밀번호확인</button>
-        </div>
-      </form>
-      {errorCheck ? (
-        <EditUser
-          handlePassword={handlePassword}
-          handleChangePassowrd={handleChangePassowrd}
-        />
-      ) : (
-        ""
-      )}
+    <div id="userinfo-wrapper">
+      <center>
+        <div id="userinfo-title">WebMarker 회원정보</div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="userinfo-box">webmarker@gmail.com</div>
+          <div>
+            <input
+              className="userinfo-password-box"
+              type="password"
+              placeholder="현재 password"
+            ></input>
+          </div>
+          <div>
+            <button className="userifn-btn" onClick={checkPassword}>
+              비밀번호확인
+            </button>
+          </div>
+        </form>
+        {errorCheck ? (
+          <EditUser
+            handlePassword={handlePassword}
+            handleChangePassowrd={handleChangePassowrd}
+          />
+        ) : (
+          ""
+        )}
 
-      {errorCheck ? <div>{errorMessage}</div> : ""}
-    </center>
+        {errorCheck ? <div>{errorMessage}</div> : ""}
+      </center>
+    </div>
   );
 }
 
