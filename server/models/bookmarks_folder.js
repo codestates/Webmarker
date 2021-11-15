@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Bookmarks_Folder extends Model {
     /**
@@ -12,15 +10,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Bookmarks_Folder.init({
-    id: {
-      type: DataTypes.Number,
-      primaryKey: true,
+  }
+  Bookmarks_Folder.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Bookmarks_Folder",
     }
-  }, {
-    sequelize,
-    modelName: 'Bookmarks_Folder',
-  });
+  );
   return Bookmarks_Folder;
 };
