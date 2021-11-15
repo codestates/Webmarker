@@ -34,7 +34,7 @@ export default function Login() {
             type="email"
             placeholder="username"
             className="login-box"
-            onChange={handlerLoginInfo}
+            onChange={() => handleInputValue("email")}
           ></input>
         </div>
         <div>
@@ -42,7 +42,7 @@ export default function Login() {
             type="password"
             placeholder="password"
             className="login-box"
-            onChange={handlerLoginInfo}
+            onChange={() => handleInputValue("password")}
           ></input>
         </div>
         <div>
