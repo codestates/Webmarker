@@ -7,7 +7,7 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     database: "webmarker",
     host: process.env.DATABASE_HOST,
-    port: process.env.PORT,
+    port: process.env.DATABASE_PORT,
     dialect: "mysql",
   },
   test: {
@@ -15,7 +15,7 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     database: "webmarker",
     host: process.env.DATABASE_HOST,
-    port: process.env.PORT,
+    port: process.env.DATABASE_PORT,
     dialect: "mysql",
   },
   production: {
@@ -23,7 +23,7 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     database: "webmarker",
     host: process.env.DATABASE_HOST,
-    port: process.env.PORT,
+    port: process.env.DATABASE_PORT,
     dialect: "mysql",
   },
 };
