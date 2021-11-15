@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
-export default function Login() {
+export default function Login({ handlLoginState }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -23,6 +23,7 @@ export default function Login() {
       .then(() => {
         console.log("로그인 성공!");
       });
+    handlLoginState();
   };
 
   return (

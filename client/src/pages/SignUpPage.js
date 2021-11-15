@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
 axios.defaults.withCredentials = true;
 
 function SignUpPage() {
+  let navigate = useNavigate();
+
+  function comeBackHome() {
+    navigate("/");
+  }
+
   const [signUpInfo, setSignUpInfo] = useState({
     email: "",
     password: "",
@@ -85,9 +91,9 @@ function SignUpPage() {
           <button className="signup-btn" onClick={handleSignUp}>
             회원가입
           </button>
-          <Link to="/">
-            <button className="signup-btn">홈으로</button>
-          </Link>
+          <button className="signup-btn" onClick={comeBackHome}>
+            홈으로
+          </button>
         </div>
       </form>
       <Footer />
