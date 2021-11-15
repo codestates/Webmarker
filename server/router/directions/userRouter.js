@@ -7,5 +7,6 @@ router.get("/login", controller.users.login);
 router.get("/userinfo", controller.users.userInfo);
 router.get("/password", controller.users.checkPassword);
 router.post("/password", controller.users.updatePassword);
+router.delete("/", controller.users.withdrawal);
 
 module.exports = router;
