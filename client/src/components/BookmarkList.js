@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function BookmarkList() {
   //저장된 폴더 수
-  const [folderCount, setFolderCount] = useState([1, 2]);
+  const [folderCount, setFolderCount] = useState([1]);
 
   return (
     <section id="bookmark-list-wrapper">

@@ -10,8 +10,9 @@ export default function Login() {
     password: "",
   });
 
-  const handleInputValue = (key) => (e) => {
-    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  const handlerLoginInfo = (e) => {
+    const { name, value } = e.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
   };
 
   const handleLogin = () => {
@@ -33,7 +34,7 @@ export default function Login() {
             type="email"
             placeholder="username"
             className="login-box"
-            onChange={() => handleInputValue("email")}
+            onChange={handlerLoginInfo}
           ></input>
         </div>
         <div>
@@ -41,7 +42,7 @@ export default function Login() {
             type="password"
             placeholder="password"
             className="login-box"
-            onChange={handleInputValue("password")}
+            onChange={handlerLoginInfo}
           ></input>
         </div>
         <div>

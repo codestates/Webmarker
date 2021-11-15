@@ -14,8 +14,6 @@ function SignUpPage() {
 
   const handleSignUpValue = (key) => (e) => {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
-    console.log(signUpInfo.password);
-    console.log(signUpInfo.passwordCheck);
   };
   //회원가입 정보를 변경하는 함수
 
@@ -39,12 +37,14 @@ function SignUpPage() {
 
   const handleSignUp = () => {
     if (signUpInfo.password === signUpInfo.passwordCheck) {
-      console.log("회원가입 성공!");
       axios
-        .post("http://webmarker/user/signup", {
-          email: signUpInfo.id,
-          password: signUpInfo.password,
-        })
+        .post(
+          "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/signup",
+          {
+            email: signUpInfo.id,
+            password: signUpInfo.password,
+          }
+        )
         .then(() => {
           console.log("회원가입 성공!");
         });
