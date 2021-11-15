@@ -10,7 +10,7 @@ export default function Login({ handlLoginState }) {
     password: "",
   });
 
-  const handlerLoginInfo = (e) => {
+  const handleLoginInfo = (e) => {
     const { name, value } = e.target;
     setLoginInfo({ ...loginInfo, [name]: value });
   };
@@ -24,7 +24,7 @@ export default function Login({ handlLoginState }) {
       .then(() => {
         console.log("로그인 성공!");
       });
-    handlLoginState();
+    handlLoginState(true);
   };
 
   return (
@@ -35,7 +35,7 @@ export default function Login({ handlLoginState }) {
             type="email"
             placeholder="username"
             className="login-box"
-            onChange={() => handleInputValue("email")}
+            onChange={() => handleLoginInfo("email")}
           ></input>
         </div>
         <div>
@@ -43,7 +43,7 @@ export default function Login({ handlLoginState }) {
             type="password"
             placeholder="password"
             className="login-box"
-            onChange={() => handleInputValue("password")}
+            onChange={() => handleLoginInfo("password")}
           ></input>
         </div>
         <div>
