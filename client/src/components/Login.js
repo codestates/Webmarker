@@ -10,8 +10,9 @@ export default function Login({ handlLoginState }) {
     password: "",
   });
 
-  const handleInputValue = (key) => (e) => {
-    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  const handlerLoginInfo = (e) => {
+    const { name, value } = e.target;
+    setLoginInfo({ ...loginInfo, [name]: value });
   };
 
   const handleLogin = () => {
@@ -42,7 +43,7 @@ export default function Login({ handlLoginState }) {
             type="password"
             placeholder="password"
             className="login-box"
-            onChange={handleInputValue("password")}
+            onChange={() => handleInputValue("password")}
           ></input>
         </div>
         <div>
