@@ -1,14 +1,43 @@
 const { checkAccessToken } = require("../tokenFunction");
-const { Folder, Bookmark, Tag, Bookmarks_Folder, Bookmarks_Tag } = require("../../models");
+const { User, Folder, Bookmark, Tag, Bookmarks_Folder, Bookmarks_Tag } = require("../../models");
 
 module.exports = {
-  allBookmarks: (req, res) => {
-    res.status(200).send("it's bookmarksRouter");
-  },
-  addBookmark: async (req, res) => { //북마크 추가하는 기능
+  allBookmarks: async (req, res) => {
+    // 인증된 유저인가?
+    const tokenData = checkAccessToken(req);
+    console.log(tokenData);
+    console.log("-----------------");
+    if (!tokenData)
+      res.status(401).json({
+        data: null,
+        message: "유효하지 않는 토큰입니다.",
+      });
+    const { id } = tokenData;
 
+    // 유저가 가지고 있는 폴더 정보 조회
+    try {
+      const userFolderData = await User.findAll({
+        where: { id },
+        include: {
+          model: Folder,
+          //through: { attributes: [] },
+        },
+      });
+      const { Folders } = userData.dataValues.Folders;
+      console.log(Folders);
+
+      res
+        .status(200)
+        .json({ data: userData, message: "Succeed Getting User's Bookmark Information" });
+    } catch (err) {
+      res.status(500).json({ data: null, message: err });
+    }
   },
-  updateBookmark: async (req, res) => { // 북마크의 내용 수정하는 기능
+  addBookmark: async (req, res) => {
+    //북마크 추가하는 기능
+  },
+  updateBookmark: async (req, res) => {
+    // 북마크의 내용 수정하는 기능
     // 인증된 유저인가?
     const tokenData = checkAccessToken(req);
     if (!tokenData)
@@ -16,13 +45,15 @@ module.exports = {
         data: null,
         message: "유효하지 않는 토큰입니다.",
       });
+    console.log("tokenData: " + tokenData);
     // 요청을 제대로 하였는가?
     const { id, title, url, content, tagId, tagName, folderId, folderName } = req.body;
     if (!id) res.status(400).json({ data: null, message: "잘못된 요청입니다" });
     try {
       // 요청에 따른 데이터 수정있다면
-      const bookmarkData;
-      if (title && url && content) { // 타이틀, url, 콘텐츠 수정 요청이 있다면
+      let bookmarkData;
+      if (title && url && content) {
+        // 타이틀, url, 콘텐츠 수정 요청이 있다면
         bookmarkData = await Bookmark.update({ title, url, content }, { where: { id } });
       } else if (title && url) {
         bookmarkData = await Bookmark.update({ title, url }, { where: { id } });
@@ -37,26 +68,27 @@ module.exports = {
       } else {
         bookmarkData = await Bookmark.updata({ title }, { where: { id } });
       }
-      
+
       const tagData = await Tag.update({ name: tagName }, { where: { id: tagId } });
 
       res.status(201).json({
         data: {
-          bookmark:
-          {
+          bookmark: {
             id: bookmarkData.dataValues.id,
             title: bookmarkData.dataValues.title,
             content: bookmarkData.dataValues.content,
-            url: bookmarkData.dataValues.url
+            url: bookmarkData.dataValues.url,
           },
-          tag: { id: tagData.dataValues.id, name: tagData.dataValues.name}
-        }, message: "Succeed to update a bookmark"
+          tag: { id: tagData.dataValues.id, name: tagData.dataValues.name },
+        },
+        message: "Succeed to update a bookmark",
       });
     } catch (err) {
       res.status(500).json({ data: null, message: err });
     }
   },
-  moveBookmark: async (req, res) => { // 북마크 이동하는 기능
+  moveBookmark: async (req, res) => {
+    // 북마크 이동하는 기능
     // 인증된 유저인가?
     const tokenData = checkAccessToken(req);
     if (!tokenData) {
@@ -72,18 +104,18 @@ module.exports = {
     try {
       const result = await Bookmarks_Folder.update({ folderId }, { where: { bookmarkId: id } });
       res.status(201).json({
-        data:
-        {
+        data: {
           folderId: result.dataValues.folderId,
-          bookmarkId: result.dataValues.bookmarkId
+          bookmarkId: result.dataValues.bookmarkId,
         },
-        message: "북마크를 이동했습니다."
-      })
+        message: "북마크를 이동했습니다.",
+      });
     } catch (err) {
-      res.status(500).json({data: null, message: err});
+      res.status(500).json({ data: null, message: err });
     }
   },
-  deleteBookmark: (req, res) => { // 북마크 삭제하는 기능
+  deleteBookmark: (req, res) => {
+    // 북마크 삭제하는 기능
     // 인증된 유저인가?
     const tokenData = checkAccessToken(req);
     if (!tokenData)
