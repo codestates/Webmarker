@@ -3,8 +3,8 @@ const controller = require("./../../controller/index");
 
 router.get("/", controller.bookmarks.allBookmarks);
 router.post("/", controller.bookmarks.addBookmark);
-router.update("/", controller.bookmarks.updateBookmark);
-router.update("/{:id}", controller.bookmarks.moveBookmark);
+router.put("/", controller.bookmarks.updateBookmark);
+router.patch("/{:id}", controller.bookmarks.moveBookmark);
 router.delete("/", controller.bookmarks.deleteBookmark);
 
 module.exports = router;
