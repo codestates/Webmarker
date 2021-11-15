@@ -1,9 +1,7 @@
 #!/bin/bash
 cd /home/ubuntu/Webmarker/server
-sudo -i
 npm install
 npm install pm2@latest -g
-logout
 sudo apt-get update
 sudo apt-get install authbind
 sudo touch /etc/authbind/byport/80
