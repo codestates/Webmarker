@@ -9,4 +9,3 @@ sudo chown ubuntu /etc/authbind/byport/80
 sudo chmod 755 /etc/authbind/byport/80
 sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 
-

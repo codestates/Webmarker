@@ -35,6 +35,11 @@ module.exports = {
         data: null,
         message: "존재하지 않는 사용자 정보입니다",
       });
+    } else if (data.dataValues.password !== password) {
+      res.status(401).send({
+        data: null,
+        message: "비밀번호가 일치하지 않습니다.",
+      });
     } else {
       const { id, email, createAt } = data.dataValues;
       tokenData = {
@@ -69,9 +74,9 @@ module.exports = {
   // 비밀번호 확인
   checkPassword: async (req, res) => {
     const tokenData = checkAccessToken(req);
-    const { email } = tokenData;
+    const { id } = tokenData;
     const { password } = req.body;
-    const userData = await db.User.findOne({ where: { email } });
+    const userData = await db.User.findOne({ where: { id } });
     if (userData.dataValues.password === password) {
       res.status(200).send({
         data: {
@@ -91,9 +96,9 @@ module.exports = {
   // 비밀번호 갱신
   updatePassword: async (req, res) => {
     const tokenData = checkAccessToken(req);
-    const { email } = tokenData;
+    const { id } = tokenData;
     const { password } = req.body;
-    const userData = await db.User.update({ password }, { where: { email } });
+    const userData = await db.User.update({ password }, { where: { id } });
     console.log(userData);
     if (!userData) {
       res.status(400).send({
@@ -105,6 +110,27 @@ module.exports = {
       res.status(200).send({
         data: null,
         message: "password has been changed",
+      });
+    }
+  },
+  // 회원탈퇴 API
+  withdrawal: async (req, res) => {
+    const tokenData = checkAccessToken(req);
+    if (!tokenData) {
+      res.status(400).send({
+        data: null,
+        message: "토큰의 데이터가 확인되지 않습니다",
+      });
+    } else {
+      const { id } = tokenData;
+      await db.User.destroy({
+        where: {
+          id,
+        },
+      });
+      res.status(200).send({
+        data: null,
+        message: "Membership withdrawal has been completed",
       });
     }
   },

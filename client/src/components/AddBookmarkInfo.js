@@ -7,6 +7,7 @@ import { makeBookmark } from "../actions/makeBookmark";
 import bookmarkReducer from "../reducers/bookmark";
 import { editBookmark } from "../actions/eidtBookmark";
 import { selectBookmark } from "../actions/selectBookmark";
+import { deleteBookmark } from "../actions/deleteBookmark";
 
 function AddBookmarkInfo() {
   const dispatch = useDispatch();
@@ -91,6 +92,9 @@ function AddBookmarkInfo() {
     setIsEditMode(false);
     dispatch(selectBookmark(null));
   };
+  const removeBookmark = () => {
+    dispatch(deleteBookmark(selectBookmarkId));
+  };
   useEffect(() => {
     if (selectData === null) {
       setBookmarkInfo({
@@ -156,7 +160,6 @@ function AddBookmarkInfo() {
           />
         </div>
       </div>
-
       <button
         className="submit-button"
         onClick={isViewMode ? setEditMode : submitReview}
@@ -166,6 +169,11 @@ function AddBookmarkInfo() {
       {selectData !== null ? (
         <button className="submit-button" onClick={closeEdit}>
           닫기
+        </button>
+      ) : null}
+      {selectData !== null ? (
+        <button className="submit-button" onClick={removeBookmark}>
+          삭제
         </button>
       ) : null}
     </div>
