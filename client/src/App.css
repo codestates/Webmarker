@@ -139,6 +139,7 @@ a:visited {
 .invalid-feedback {
   color: #dc143c;
   font-weight: bold;
+  margin: 0.4rem;
 }
 
 /* Nav Bar*/
@@ -167,7 +168,6 @@ a:visited {
   width: 180px;
   background-color: #641eac;
   position: relative;
-  top: 0.6rem;
   /* margin-top: 0.5rem; */
   margin-left: 1rem;
   cursor: pointer;
@@ -465,7 +465,7 @@ a:visited {
 .signout-btn {
   width: 8.2%;
   height: 2.4rem;
-  margin: 0.2rem;
+  margin: 0.2rem 0.2rem 0.5rem;
   border: 0.1rem solid #696969;
   background-color: #dc143c;
   color: white;

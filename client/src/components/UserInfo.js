@@ -4,37 +4,63 @@ import EditUser from "./EditUser";
 
 axios.defaults.withCredentials = true;
 
-function UserInfoPage({ handleOnMyPage }) {
-  // const [userInfo, setUserInfo] = useState("")
+function UserInfoPage({ handleOnMyPage, userId }) {
   const [newPassword, setPassword] = useState({
+    password: "",
     newPassword: "",
     newPasswordCheck: "",
   });
-  // const [passwordCheck, setPasswordCheck] = useState(false);
   const [errorCheck, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessageCheck, setErrorMessageCheck] = useState(false);
 
   const handlePassword = (key) => (e) => {
     setPassword({ ...newPassword, [key]: e.target.value });
+    console.log(newPassword.newPassword);
   };
   //회원가입 정보를 변경하는 함수
 
   const checkPassword = () => {
-    setError(true);
-    // axios.get("endpoint").then(res => setError(res.body))
+    axios
+      .get(
+        `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/password/${newPassword.password}`,
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.data.result) {
+          setErrorMessageCheck(false);
+          setError(res.data.data.result);
+        } else {
+          setErrorMessageCheck(true);
+          setErrorMessage("비밀번호가 일치하지 않습니다");
+        }
+      });
   };
   //패스워드 체크하는 함수
 
   const handleChangePassowrd = () => {
     if (newPassword.newPassword === newPassword.newPasswordCheck) {
       axios
-        .get(
-          "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/userinfo"
+        .patch(
+          "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/password",
+          { password: newPassword.newPassword },
+          {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            },
+          }
         )
         .then(() => {
-          console.log("비밀번호 변경 성공!");
+          alert("비밀번호가 성공적으로 변경되었습니다");
+          setErrorMessageCheck(false);
+          setError(false);
         });
     } else {
+      setErrorMessageCheck(true);
       setErrorMessage("비밀번호가 일치하지 않습니다");
     }
   };
@@ -46,12 +72,13 @@ function UserInfoPage({ handleOnMyPage }) {
         <center>
           <div id="userinfo-title">WebMarker 회원정보</div>
           <form onSubmit={(e) => e.preventDefault()}>
-            <div className="userinfo-box">webmarker@gmail.com</div>
+            <div className="userinfo-box">{userId}</div>
             <div>
               <input
                 className="userinfo-password-box"
                 type="password"
                 placeholder="현재 password"
+                onChange={handlePassword("password")}
               ></input>
             </div>
             <div>
@@ -68,13 +95,18 @@ function UserInfoPage({ handleOnMyPage }) {
           </form>
           {errorCheck ? (
             <EditUser
+              errorMessageCheck={errorMessageCheck}
               handlePassword={handlePassword}
               handleChangePassowrd={handleChangePassowrd}
             />
           ) : (
             ""
           )}
-          {errorCheck ? <div>{errorMessage}</div> : ""}
+          {errorMessageCheck ? (
+            <div className="invalid-feedback">{errorMessage}</div>
+          ) : (
+            ""
+          )}
         </center>
       </div>
     </section>

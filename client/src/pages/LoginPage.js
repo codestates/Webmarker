@@ -2,7 +2,7 @@ import React from "react";
 import Login from "../components/Login";
 import Footer from "../components/Footer";
 
-function LoginPage({ handlLoginState }) {
+function LoginPage() {
   return (
     <div>
       <center id="login-page">
@@ -12,7 +12,7 @@ function LoginPage({ handlLoginState }) {
         />
       </center>
       <div>
-        <Login handlLoginState={handlLoginState} />
+        <Login />
       </div>
       <div>
         <Footer />

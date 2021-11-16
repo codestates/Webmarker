@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutChange } from "../actions/loginChange";
 
 axios.defaults.withCredentials = true;
 
 export default function EditUser({ handlePassword, handleChangePassowrd }) {
+  const dispatch = useDispatch();
+
   const useConfirm = (message = null, onConfirm, onCancel) => {
     if (!onConfirm || typeof onConfirm !== "function") {
       return;
@@ -20,8 +24,24 @@ export default function EditUser({ handlePassword, handleChangePassowrd }) {
     };
     return confirmAction;
   };
-  const deleteConfirm = () => console.log("삭제했습니다.");
-  //signout API 생기면 수정
+
+  const deleteConfirm = () => {
+    console.log("삭제했습니다.");
+    axios
+      .delete(
+        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users",
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => {
+        dispatch(logoutChange());
+        alert("계정삭제가 정상적으로 처리되었습니다");
+      });
+  };
+
   const cancelConfirm = () => console.log("취소했습니다.");
   const confirmDelete = useConfirm(
     "정말 탈퇴하시겠습니까?",
