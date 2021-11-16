@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -22,8 +22,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     // tagId 외래키 조건 삭제
-    await removeConstraint("Bookmarks_Tags", "bookmark_tags_fkey2");
+    await queryInterface.removeConstraint("Bookmarks_Tags", "bookmark_tags_fkey2");
     // tagId 필드 삭제
-    await removeColumn("Bookmarks_Tags", "tagId");
-  }
+    await queryInterface.removeColumn("Bookmarks_Tags", "tagId");
+  },
 };

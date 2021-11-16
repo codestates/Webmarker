@@ -18,6 +18,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        email: "test@sample.co.kr",
+        password: "1234",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

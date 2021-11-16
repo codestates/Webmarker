@@ -22,8 +22,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     // userId 외래키 조건 삭제
-    await removeConstraint("Folders", "folders_fkey");
+    await queryInterface.removeConstraint("Folders", "folders_fkey", {});
     // userId 필드 삭제
-    await removeColumn("Folders", "userId");
+    await queryInterface.removeColumn("Folders", "userId");
   },
 };

@@ -18,6 +18,12 @@ module.exports = {
         updatedAt: new Date(),
         userId: 1,
       },
+      {
+        name: "folder-02",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        userId: 1,
+      },
     ]);
   },
 

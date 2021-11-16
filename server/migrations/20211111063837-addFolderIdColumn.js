@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -22,8 +22,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     // folderId 외래키 조건 삭제
-    await removeConstraint("Bookmarks_Folders", "bookmark_folders_fkey");
+    await queryInterface.removeConstraint("Bookmarks_Folders", "bookmark_folders_fkey", {});
     // folderId 필드 삭제
-    await removeColumn("Bookmarks_Folders", "folderId");
-  }
+    await queryInterface.removeColumn("Bookmarks_Folders", "folderId");
+  },
 };
