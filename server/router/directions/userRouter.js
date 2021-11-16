@@ -8,5 +8,7 @@ router.get("/userinfo", controller.users.userInfo);
 router.get("/password/:id", controller.users.checkPassword);
 router.patch("/password", controller.users.updatePassword);
 router.delete("/", controller.users.withdrawal);
-
+// 구글 로그인 관련
+router.get("/auth/google", controller.users.google);
+router.get("/auth/google/callback", controller.users.googleCallback);
 module.exports = router;

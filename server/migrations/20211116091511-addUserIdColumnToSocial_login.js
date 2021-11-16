@@ -2,18 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // Social_Logins 테이블에 userId 필드 추가
     await queryInterface.addColumn(
-      "Bookmarks_Tags",
-      "bookmarkId",
+      "Social_Logins",
+      "userId",
       Sequelize.INTEGER
     );
-    // bookmarkId를 Bookmarks_Tags Table에 외래키로 지정
-    await queryInterface.addConstraint("Bookmarks_Tags", {
-      fields: ["bookmarkId"],
+
+    // userId를 Social_Logins Table에 외래키로 지정
+    await queryInterface.addConstraint("Social_Logins", {
+      fields: ["userId"],
       type: "foreign key",
-      name: "bookmark_tags_fkey",
+      name: "social_logins_fkey",
       references: {
-        table: "Bookmarks",
+        table: "Users",
         field: "id",
       },
       // 부모테이블 해당하는 id가 삭제되거나 자식테이블의 내용도 삭제및 수정
@@ -23,12 +25,13 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    // bookmarkId 외래키 조건 삭제
+    // userId 외래키 조건 삭제
     await queryInterface.removeConstraint(
-      "Bookmarks_Tags",
-      "bookmark_tags_fkey"
+      "Social_Logins",
+      "social_logins_fkey",
+      {}
     );
-    // bookmarkId 필드 삭제
-    await queryInterface.removeColumn("Bookmarks_Tags", "bookmarkId");
+    // userId 필드 삭제
+    await queryInterface.removeColumn("Social_Logins", "userId");
   },
 };

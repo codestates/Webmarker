@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmarks_Folder.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
       folderId: {
         type: DataTypes.INTEGER,
       },

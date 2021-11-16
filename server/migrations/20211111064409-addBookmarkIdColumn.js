@@ -2,6 +2,11 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn(
+      "Bookmarks_Folders",
+      "bookmarkId",
+      Sequelize.INTEGER
+    );
     // bookmarkId를 Bookmarks_Folders Table에 외래키로 지정
     await queryInterface.addConstraint("Bookmarks_Folders", {
       fields: ["bookmarkId"],
@@ -19,8 +24,15 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     // folderId 외래키 조건 삭제
-    await queryInterface.removeConstraint("Bookmarks_Folders", "bookmark_folders_fkey2", {});
+    await queryInterface.removeConstraint(
+      "Bookmarks_Folders",
+      "bookmark_folders_fkey2",
+      {}
+    );
     // folderId 필드 삭제
-    await queryInterface.removeColumn("Bookmarks_Folders", "bookmarkId");
+    await queryInterface.removeColumn(
+      "Bookmarks_Folders",
+      "bookmarkId"
+    );
   },
 };
