@@ -10,21 +10,23 @@ export default function Login({ handlLoginState }) {
     password: "",
   });
 
-  const handleLoginInfo = (e) => {
-    const { name, value } = e.target;
-    setLoginInfo({ ...loginInfo, [name]: value });
+  const handleLoginInfo = (key) => (e) => {
+    // const { name, value } = e.target;
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
   const handleLogin = () => {
     axios
-      .post("http://webmarker/user/login", {
-        email: loginInfo.email,
-        password: loginInfo.password,
-      })
-      .then(() => {
+      .post(
+        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/login",
+        { email: loginInfo.email, password: loginInfo.password }
+      )
+      .then((res) => {
+        console.log(res);
         console.log("로그인 성공!");
+        localStorage.setItem("token", res.data.accessToken);
+        handlLoginState(true);
       });
-    handlLoginState(true);
   };
 
   return (

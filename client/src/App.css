@@ -48,7 +48,7 @@
 }
 
 .login-text-section {
-  margin-bottom: 14rem;
+  margin-bottom: 9rem;
 }
 
 .login-text-wrapper {
@@ -100,7 +100,7 @@ a:visited {
 
 /* 회원가입 페이지 CSS */
 #signup-wrapper {
-  margin-top: 16rem;
+  margin-top: 14rem;
 }
 
 #signup-title {
@@ -126,7 +126,7 @@ a:visited {
 .signup-btn {
   width: 8.2%;
   height: 2.4rem;
-  margin: 0.3rem 0.4rem 18.6rem 0.4rem;
+  margin: 0.3rem 0.4rem 16.65rem 0.4rem;
   border: 0.1rem solid #696969;
   background-color: #641eac;
   color: white;
@@ -134,6 +134,11 @@ a:visited {
   font-weight: bold;
   border-radius: 0.3rem;
   cursor: pointer;
+}
+
+.invalid-feedback {
+  color: #dc143c;
+  font-weight: bold;
 }
 
 /* Nav Bar*/
@@ -146,17 +151,17 @@ a:visited {
 #main-title-logo {
   width: 180px;
   background-color: #641eac;
-  position: sticky;
+  position: relative;
   top: 0.6rem;
-  /* margin-top: 0.5rem;
-  margin-left: 0.5rem; */
+  /* margin-top: 0.5rem; */
+  margin-left: 1rem;
   cursor: pointer;
 }
 
 #maypage-text-wrapper {
   position: sticky;
   top: 1.3rem;
-  left: 108rem;
+  left: 109rem;
   background-color: #641eac;
 }
 
@@ -185,7 +190,7 @@ a:visited {
 }
 
 #search-btn {
-  width: 4%;
+  width: 90px;
   height: 2rem;
   margin: 0.3rem;
   border: 0.1rem solid #696969;
@@ -383,7 +388,7 @@ a:visited {
 
 /* 회원정보 페이지 CSS */
 #userinfo-wrapper {
-  margin-top: 12rem;
+  margin-top: 11rem;
 }
 
 #userinfo-title {
@@ -419,12 +424,25 @@ a:visited {
   outline: 0.12rem solid #641eac;
 }
 
-.userifn-btn {
+.userinfo-btn {
   width: 8.2%;
   height: 2.4rem;
   margin: 0.3rem;
   border: 0.1rem solid #696969;
   background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.signout-btn {
+  width: 8.2%;
+  height: 2.4rem;
+  margin: 0.2rem;
+  border: 0.1rem solid #696969;
+  background-color: #dc143c;
   color: white;
   font-size: 1rem;
   font-weight: bold;
