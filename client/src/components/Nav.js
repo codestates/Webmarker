@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { filterBookmark, filterType } from "../actions/selectBookmark";
 import Search from "../components/Search";
 import SelectBox from "./SelectBox";
+import axios from "axios";
+import { logoutChange } from "../actions/loginChange";
 
-export default function Nav({ handleOnMyPage, handlLoginState }) {
+export default function Nav({ handleOnMyPage }) {
   const dispatch = useDispatch();
   const options = [
     {
@@ -16,6 +18,7 @@ export default function Nav({ handleOnMyPage, handlLoginState }) {
       value: "tag",
     },
   ];
+
   const searchHandler = (keyword) => {
     if (keyword.length === 0) {
       dispatch(filterBookmark(null));
@@ -23,10 +26,25 @@ export default function Nav({ handleOnMyPage, handlLoginState }) {
     }
     dispatch(filterBookmark(keyword));
   };
+
   const selectHandler = (value) => {
     dispatch(filterType(value));
   };
 
+  const handleLogout = () => {
+    dispatch(logoutChange());
+    axios.post(
+      "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com//users/logout",
+      {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      }
+    );
+    window.localStorage.removeItem("token");
+    //토큰삭제
+  };
+  //로그아웃 실행함수
   // const resetHandler = () =>
 
   return (
@@ -44,7 +62,7 @@ export default function Nav({ handleOnMyPage, handlLoginState }) {
         <div className="mypage-text" onClick={() => handleOnMyPage(true)}>
           마이페이지
         </div>
-        <div className="mypage-text" onClick={() => handleOnMyPage(false)}>
+        <div className="mypage-text" onClick={handleLogout}>
           로그아웃
         </div>
       </div>
