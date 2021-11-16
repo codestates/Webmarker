@@ -9,7 +9,7 @@ function LoginPage({ handlLoginState }) {
         <img
           id="login-logo"
           src="https://media.discordapp.net/attachments/907157959333785630/908518178777333800/WebMarker_logo_proto_resizePNG.png"
-        />{" "}
+        />
       </center>
       <div>
         <Login handlLoginState={handlLoginState} />

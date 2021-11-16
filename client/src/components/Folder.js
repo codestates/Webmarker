@@ -4,7 +4,18 @@ import AddBookmark from "./AddBookmark";
 import { useSelector } from "react-redux";
 
 function Folder() {
-  const bookmarks = useSelector((store) => store.bookmark.bookmarks);
+  const { bookmarks, keyword, filterType } = useSelector(
+    (store) => store.bookmark
+  );
+
+  const filteredBookmarks =
+    keyword === null
+      ? bookmarks
+      : bookmarks.filter((bookmark) => {
+          const searchKeyword = bookmark[filterType];
+          if (typeof searchKeyword !== "string") return bookmarks;
+          return searchKeyword.includes(keyword);
+        });
 
   return (
     <section className="folder-wrapper">
@@ -13,7 +24,7 @@ function Folder() {
       ) : (
         <div className="single-folder">
           Foldername
-          {bookmarks.map((item) => (
+          {filteredBookmarks.map((item) => (
             <Bookmark id={item.id} title={item.title} />
           ))}
         </div>
