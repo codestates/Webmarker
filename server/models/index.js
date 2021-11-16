@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
 
 let sequelize;
@@ -13,25 +13,15 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 //models 폴더 내부에 존재하는 파일들을 읽어와 findOne, findAll과 같은 함수를 실행할수 있게끔 모델 인스턴스를 생성합니다.
 fs.readdirSync(__dirname)
   .filter((file) => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    );
+    return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js";
   })
   .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     //db.users와 같이 db 객체 내부에 모델 인스턴스를 저장합니다.
     db[model.name] = model;
   });
@@ -46,17 +36,32 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // 테이블 간 관계 정의
-const {User, Folder, Bookmark, Tag} = sequelize.models;
+const { User, Folder, Bookmark, Tag } = sequelize.models;
 // 폴더 모델은 유저 모델에 종속되며
 Folder.belongsTo(User);
 // 유저 모델은 여러개의 폴더 모델을 가질 수 있다.
 User.hasMany(Folder);
 // 폴더와 북마크는 M:N
-Folder.belongsToMany(Bookmark, {through: "Bookmarks_Folders"});
-Bookmark.belongsToMany(Folder, {through: "Bookmarks_Folders"});
+Folder.belongsToMany(Bookmark, {
+  through: "Bookmarks_Folders",
+  as: "Bookmarks",
+  foreignKey: "folderId",
+});
+Bookmark.belongsToMany(Folder, {
+  through: "Bookmarks_Folders",
+  as: "Folders",
+  foreignKey: "bookmarkId",
+});
 // 북마크와 태그는 M:N
-Bookmark.belongsToMany(Tag, {through: "Bookmarks_Tags"});
-Tag.belongsToMany(Bookmark, {through: "Bookmarks_Tags"});
-
+Bookmark.belongsToMany(Tag, {
+  through: "Bookmarks_Tags",
+  as: "Tags",
+  foreignKey: "bookmarkId",
+});
+Tag.belongsToMany(Bookmark, {
+  through: "Bookmarks_Tags",
+  as: "Bookmarks",
+  foreignKey: "tagId",
+});
 
 module.exports = db;

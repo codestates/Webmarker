@@ -17,8 +17,12 @@ module.exports = {
         tagId: 1,
       },
       {
+        bookmarkId: 1,
+        tagId: 2,
+      },
+      {
         bookmarkId: 2,
-        tagId: 1,
+        tagId: 3,
       },
     ]);
   },

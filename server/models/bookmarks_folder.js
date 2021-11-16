@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
       },
+      folderId: {
+        type: DataTypes.INTEGER,
+      },
+      bookmarkId: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

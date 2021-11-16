@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Folder.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
       name: DataTypes.STRING,
     },
     {
