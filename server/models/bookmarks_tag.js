@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmarks_Tag.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
       bookmarkId: {
         type: DataTypes.INTEGER,
       },
