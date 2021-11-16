@@ -12,7 +12,10 @@ function App() {
   const handlLoginState = (value) => {
     setIsLogin(value);
     if (value === false) {
-      axios.post("http://webmarker/users/logout");
+      axios.post(
+        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com//users/logout"
+      );
+      localStorage.removeItem("token");
     }
   };
 
@@ -37,15 +40,6 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <Route path="/" element={<LoginPage />} />
-        <Route path="mainpage" element={<MainPage />} /> */
-}
-
-{
-  /* <Route path="userinfo" element={<UserInfoPage />} /> */
-}
 
 // {
 //   headers: {

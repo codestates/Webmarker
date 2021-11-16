@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import EditUser from "./EditUser";
-import Nav from "./Nav";
-import Footer from "./Footer";
 
 axios.defaults.withCredentials = true;
 
@@ -30,9 +27,13 @@ function UserInfoPage({ handleOnMyPage }) {
 
   const handleChangePassowrd = () => {
     if (newPassword.newPassword === newPassword.newPasswordCheck) {
-      axios.get("http://webmarker/user/userinfo").then(() => {
-        console.log("비밀번호 변경 성공!");
-      });
+      axios
+        .get(
+          "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/userinfo"
+        )
+        .then(() => {
+          console.log("비밀번호 변경 성공!");
+        });
     } else {
       setErrorMessage("비밀번호가 일치하지 않습니다");
     }
@@ -54,11 +55,11 @@ function UserInfoPage({ handleOnMyPage }) {
               ></input>
             </div>
             <div>
-              <button className="userifn-btn" onClick={checkPassword}>
+              <button className="userinfo-btn" onClick={checkPassword}>
                 비밀번호확인
               </button>
               <button
-                className="userifn-btn"
+                className="userinfo-btn"
                 onClick={() => handleOnMyPage(false)}
               >
                 뒤로
