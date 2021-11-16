@@ -75,7 +75,8 @@ module.exports = {
   checkPassword: async (req, res) => {
     const tokenData = checkAccessToken(req);
     const { id } = tokenData;
-    const { password } = req.body;
+    const password = req.params.id;
+    console.log(password);
     const userData = await db.User.findOne({ where: { id } });
     if (userData.dataValues.password === password) {
       res.status(200).send({
