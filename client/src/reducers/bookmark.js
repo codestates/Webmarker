@@ -1,6 +1,11 @@
 import { MAKE_BOOKMAKR } from "../actions/makeBookmark";
-import { SELECT_BOOKMAKR } from "../actions/selectBookmark";
+import {
+  FILTER_BOOKMAKR,
+  FILTER_TYPE,
+  SELECT_BOOKMAKR,
+} from "../actions/selectBookmark";
 import { EDIT_BOOKMARK } from "../actions/eidtBookmark";
+import { DELETE_BOOKMAKR } from "../actions/deleteBookmark";
 import { bookMarkInitialState } from "../reducers/initialState";
 
 const bookmarkReducer = (state = bookMarkInitialState, action) => {
@@ -29,6 +34,20 @@ const bookmarkReducer = (state = bookMarkInitialState, action) => {
           }
           return { ...item, ...data };
         }),
+      };
+    }
+    case DELETE_BOOKMAKR: {
+      return {
+        ...state,
+        bookmarks: state.bookmarks.filter(
+          (bookmark) => bookmark.id !== action.payload
+        ),
+      };
+    }
+    case FILTER_TYPE: {
+      return {
+        ...state,
+        filterType: action.payload,
       };
     }
     default: {
