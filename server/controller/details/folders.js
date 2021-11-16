@@ -23,14 +23,15 @@ module.exports = {
 
     // 제대로 요청을 보냈고 인증된 유저면 폴더를 DB에 저장한다.
     try {
-      const tokenUserId = { userId: tokenData.id };
       const folderData = await Folder.create({
-        tokenUserId,
-        newFolderName,
+        name: req.body.name,
+        UserId: tokenData.id,
       });
-      const { id, name, userId } = folderData.dataValues;
+      console.log(folderData);
+      const { name, UserId } = folderData.dataValues;
+      const id = folderData.dataValues.id || folderData.null;
       res.status(201).json({
-        data: { id, name, userId },
+        data: { id, name, UserId },
         message: "Succeed to create new folder",
       });
     } catch (err) {
