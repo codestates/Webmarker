@@ -1,31 +1,40 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { loginChange, logoutChange } from "../actions/loginChange";
+import { useDispatch, useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 
-export default function Login({ handlLoginState }) {
+export default function Login() {
+  const dispatch = useDispatch();
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
 
   const handleLoginInfo = (key) => (e) => {
-    // const { name, value } = e.target;
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
   const handleLogin = () => {
+    window.localStorage.setItem("email", loginInfo.email);
+    window.localStorage.setItem("password", loginInfo.password);
     axios
       .post(
         "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/login",
         { email: loginInfo.email, password: loginInfo.password }
       )
       .then((res) => {
-        console.log(res);
-        console.log("로그인 성공!");
-        localStorage.setItem("token", res.data.accessToken);
-        handlLoginState(true);
+        window.localStorage.setItem("token", res.data.data.accessToken);
+        dispatch(loginChange());
+      })
+      .catch(() => {
+        setIsError(true);
+        setErrorMessage("아이디 또는 비밀번호를 확인해주세요");
       });
   };
 
@@ -37,7 +46,7 @@ export default function Login({ handlLoginState }) {
             type="email"
             placeholder="username"
             className="login-box"
-            onChange={() => handleLoginInfo("email")}
+            onChange={handleLoginInfo("email")}
           ></input>
         </div>
         <div>
@@ -45,7 +54,7 @@ export default function Login({ handlLoginState }) {
             type="password"
             placeholder="password"
             className="login-box"
-            onChange={() => handleLoginInfo("password")}
+            onChange={handleLoginInfo("password")}
           ></input>
         </div>
         <div>
@@ -53,6 +62,7 @@ export default function Login({ handlLoginState }) {
             로그인
           </button>
         </div>
+        {isError ? <div className="invalid-feedback">{errorMessage}</div> : ""}
       </form>
       <div className="login-text-section">
         <div className="login-text-wrapper">
