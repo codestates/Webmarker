@@ -11,11 +11,11 @@ export default function Nav({ handleOnMyPage }) {
   const options = [
     {
       name: "타이틀",
-      value: "title",
+      value: "name",
     },
     {
       name: "태그",
-      value: "tag",
+      value: "Tags",
     },
   ];
 

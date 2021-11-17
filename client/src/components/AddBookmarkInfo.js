@@ -3,21 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
-import { makeBookmark } from "../actions/makeBookmark";
-import bookmarkReducer from "../reducers/bookmark";
-import { editBookmark } from "../actions/eidtBookmark";
 import { selectBookmark } from "../actions/selectBookmark";
-import { deleteBookmark } from "../actions/deleteBookmark";
+import axios from "axios";
+import { setFolders } from "../actions/folder";
 
 function AddBookmarkInfo() {
   const dispatch = useDispatch();
   const selectBookmarkId = useSelector(
     (store) => store.bookmark.selectBookmarkId
   );
+  const selectFolderId = useSelector((store) => store.folder.selectFolderId);
   const selectData =
-    useSelector((store) =>
-      store.bookmark.bookmarks.find((item) => item.id === selectBookmarkId)
-    ) ?? null;
+    useSelector((store) => {
+      const datas = store.folder.folders.map((folder) => {
+        return folder.Bookmarks.find(
+          (bookmark) => bookmark.id === selectBookmarkId
+        );
+      });
+
+      const totalSelectData = datas.find((data) => data !== undefined);
+      return totalSelectData;
+    }) ?? null;
+
   // ?? 앞에 데이터의 값이 undefinde나 null 일때 ?? 뒤에 값을 가진다.
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -30,36 +37,66 @@ function AddBookmarkInfo() {
 
   const isViewMode = selectData !== null && !isEditMode;
 
+  const getFolders = () => {
+    axios
+      .get(
+        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+        {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        const folder = response.data.data.folders;
+        dispatch(setFolders(folder));
+      })
+      .catch((err) => {});
+  };
+
   // 입력 버튼을 누르면 서버로 북마크 정보 전송
   const submitReview = () => {
     if (selectData !== null) {
-      dispatch(
-        editBookmark({
-          id: selectData.id,
-          data: bookmarkInfo,
-        })
-      );
-      // Axios.put("http://webmarker/bookmarks/id", {
-      //   title: bookmarkInfo.title,
-      //   tag: bookmarkInfo.tag,
-      //   url: bookmarkInfo.url,
-      //   contents: bookmarkInfo.contents,
-      // }).then(() => {
-      //   alert("수정 완료!");
-      // });
+      Axios.put(
+        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+        {
+          id: selectBookmarkId,
+          name: bookmarkInfo.title,
+          url: bookmarkInfo.url,
+          content: bookmarkInfo.contents,
+          tagName: bookmarkInfo.tag,
+        },
+        {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      ).then(() => {
+        alert("수정 완료!");
+        getFolders();
+      });
       return;
     }
 
-    // Axios.post("http://webmarker/bookmarks", {
-    //   title: bookmarkInfo.title,
-    //   tag: bookmarkInfo.tag,
-    //   url: bookmarkInfo.url,
-    //   contents: bookmarkInfo.contents,
-    // }).then(() => {
-    //   alert("등록 완료!");
-    // });
+    Axios.post(
+      "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+      {
+        name: bookmarkInfo.title,
+        tag: bookmarkInfo.tag,
+        url: bookmarkInfo.url,
+        content: bookmarkInfo.contents,
+        folder: selectFolderId,
+      },
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then(() => {
+      alert("등록 완료!");
+      getFolders();
+    });
 
-    dispatch(makeBookmark(bookmarkInfo));
     setBookmarkInfo({
       title: "",
       tag: "",
@@ -92,9 +129,22 @@ function AddBookmarkInfo() {
     setIsEditMode(false);
     dispatch(selectBookmark(null));
   };
-  const removeBookmark = () => {
-    dispatch(deleteBookmark(selectBookmarkId));
-  };
+  const removeBookmark = () => {};
+  Axios.delete(
+    // `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks/${selectBookmarkId}`,
+    "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+    {
+      id: selectBookmarkId,
+    },
+    {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }
+  ).then(() => {
+    alert("삭제 완료!");
+    getFolders();
+  });
   useEffect(() => {
     if (selectData === null) {
       setBookmarkInfo({
@@ -106,13 +156,13 @@ function AddBookmarkInfo() {
       setIsEditMode(false);
       return;
     }
-    const { title, tag, url, contents } = selectData;
+    const { name, Tags, url, content } = selectData;
 
     setBookmarkInfo({
-      title,
-      tag,
+      title: name,
+      tag: Tags[0].name,
       url,
-      contents,
+      contents: content,
     });
   }, [selectData]);
 
