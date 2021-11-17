@@ -88,7 +88,7 @@ module.exports = {
         }
 
         res.status(201).json({
-          data: { bookmarkData },
+          data: null,
           message: "bookmark added!",
         });
       } else {

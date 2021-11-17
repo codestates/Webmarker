@@ -13,7 +13,7 @@ module.exports = {
      */
     return await queryInterface.bulkInsert("Tags", [
       {
-        name: "exciting, shouting",
+        name: "exciting",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
