@@ -23,19 +23,30 @@ export default function Login() {
   const handleLogin = () => {
     window.localStorage.setItem("email", loginInfo.email);
     window.localStorage.setItem("password", loginInfo.password);
-    axios
-      .post(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/login",
-        { email: loginInfo.email, password: loginInfo.password }
-      )
-      .then((res) => {
-        window.localStorage.setItem("token", res.data.data.accessToken);
-        dispatch(loginChange());
-      })
-      .catch(() => {
-        setIsError(true);
-        setErrorMessage("아이디 또는 비밀번호를 확인해주세요");
-      });
+    const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
+    const GOOGLE_AUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
+    const GOOGLE_CLIENT_ID =
+      "257229914484-mhrs0gucjmialirdq1aumouohbc1497q.apps.googleusercontent.com";
+    const GOOGLE_AUTH_REDIRECT_URL =
+      "https://server.webmarker.link/users/auth/google/callback";
+    // axios
+    //   .post(
+    //     "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/login",
+    //     { email: loginInfo.email, password: loginInfo.password }
+    //   )
+    //   .then((res) => {
+    //     window.localStorage.setItem("token", res.data.data.accessToken);
+    //     dispatch(loginChange());
+    //   })
+    //   .catch(() => {
+    //     setIsError(true);
+    //     setErrorMessage("아이디 또는 비밀번호를 확인해주세요");
+    //   });
+
+    window.location.assign(`https://server.webmarker.link/users/auth/google`);
+    // axios.get(
+    //   `${GOOGLE_AUTH_URL}?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_AUTH_REDIRECT_URL}&response_type=code&include_granted_scopes=true&scope=https://www.googleapis.com/auth/userinfo.email`
+    // );
   };
 
   return (
