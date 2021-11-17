@@ -187,17 +187,9 @@ module.exports = {
           id: userId,
           email,
         });
-        res
-          .status(200)
-          .cookie("accessToken", accessToken, {
-            httpOnly: true,
-          })
-          .send({
-            data: {
-              accessToken: accessToken,
-            },
-            message: "ok",
-          });
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+        });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
         const accessToken = generateAccessToken(signUpGoogle);
