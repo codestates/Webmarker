@@ -39,7 +39,9 @@ function MainPage() {
           <AddBookmarkInfo />
         </center>
       )}
-      <Footer />
+      <section id="footer-position">
+        <Footer />
+      </section>
     </section>
   );
 }
