@@ -197,7 +197,7 @@ module.exports = {
           httpOnly: true,
           secure: true,
         })
-        .redirect("https://webmarker.link");
+        .redirect("http://webmarker.link");
     } catch (err) {
       res.status(500).json({ data: null, message: "internal server err" });
     }
