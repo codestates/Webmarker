@@ -212,7 +212,7 @@ module.exports = {
         message: "unauthorized token",
       });
     // 요청을 제대로 하였는가?
-    const { id } = req.body; // id는 bookmarkId
+    const { id } = req.params; // id는 bookmarkId
     // console.log(id);
     if (!id) res.status(400).json({ data: null, message: "bad request" });
 
