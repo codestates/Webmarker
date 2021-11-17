@@ -8,7 +8,7 @@ function AddBookmark() {
   };
   return (
     <article className="addbookmark" onClick={removeSelectId}>
-      <button className="addbookmark-btn">+</button>
+      <button className="add-btn">+</button>
     </article>
   );
 }

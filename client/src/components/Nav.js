@@ -43,6 +43,8 @@ export default function Nav({ handleOnMyPage }) {
     );
     window.localStorage.removeItem("token");
     //토큰삭제
+    window.localStorage.removeItem("email");
+    window.localStorage.removeItem("password");
   };
   //로그아웃 실행함수
   // const resetHandler = () =>

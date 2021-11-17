@@ -117,62 +117,66 @@ function AddBookmarkInfo() {
   }, [selectData]);
 
   return (
-    <div className="AddBookmarkInfo">
-      <div id="bookmarkinfo-title">Bookmark Info</div>
-      <div className={`disable-wrapper ${isViewMode ? "hidden" : ""}`}>
-        {isViewMode ? <div className="disable-background" /> : null}
-        <div className="form-wrapper">
-          <input
-            name="title"
-            value={bookmarkInfo.title}
-            className="title-input"
-            type="text"
-            placeholder="북마크 이름"
-            onChange={bookmarkInfoHandler}
-          />
-          <input
-            name="tag"
-            value={bookmarkInfo.tag}
-            className="title-input"
-            type="text"
-            placeholder="TAG"
-            onChange={bookmarkInfoHandler}
-          />
-          <input
-            name="url"
-            value={bookmarkInfo.url}
-            className="title-input"
-            type="text"
-            placeholder="URL"
-            onChange={bookmarkInfoHandler}
-          />
-        </div>
-        <div id="cke-wrapper">
-          <CKEditor
-            id="cke"
-            name="contents"
-            editor={ClassicEditor}
-            data={bookmarkInfo.contents}
-            onChange={contentHandler}
-            config={{
-              isReadOnly: true,
-            }}
-          />
-        </div>
+    <div className={`AddBookmarkInfo ${isViewMode ? "isView" : ""}`}>
+      <div
+        id={`${isViewMode ? "bookmarkinfo-title-view" : "bookmarkinfo-title"}`}
+      >
+        Bookmark Info
+      </div>
+      {/* <div className={`disable-wrapper ${isViewMode ? "isView" : ""}`}> */}
+      {/* {isViewMode ? <div className="disable-background" /> : null} */}
+      <div className="form-wrapper">
+        <input
+          name="title"
+          value={bookmarkInfo.title}
+          className="title-input"
+          type="text"
+          placeholder="북마크 이름"
+          onChange={bookmarkInfoHandler}
+        />
+        <input
+          name="tag"
+          value={bookmarkInfo.tag}
+          className="title-input"
+          type="text"
+          placeholder="TAG"
+          onChange={bookmarkInfoHandler}
+        />
+        <input
+          name="url"
+          value={bookmarkInfo.url}
+          className="title-input"
+          type="text"
+          placeholder="URL"
+          onChange={bookmarkInfoHandler}
+        />
+      </div>
+      <div id="cke-wrapper">
+        <CKEditor
+          id="cke"
+          name="contents"
+          editor={ClassicEditor}
+          data={bookmarkInfo.contents}
+          onChange={contentHandler}
+          config={{
+            isReadOnly: true,
+          }}
+        />
+        {/* </div> */}
       </div>
       <button
-        className="submit-button"
+        className="submit-btn"
         onClick={isViewMode ? setEditMode : submitReview}
       >
         {isViewMode ? "수정" : "저장"}
       </button>
       {selectData !== null ? (
-        <button className="submit-button" onClick={closeEdit}>
+        <button className="submit-btn" onClick={closeEdit}>
           닫기
         </button>
       ) : null}
       {selectData !== null ? (
-        <button className="submit-button" onClick={removeBookmark}>
+        <button id="delete" className="submit-btn" onClick={removeBookmark}>
           삭제
         </button>
       ) : null}
