@@ -182,21 +182,30 @@ module.exports = {
       };
       const userId = await isExistSnsId(userInfo.type, userInfo.sns_id);
 
-      let accessToken;
       if (userId) {
-        accessToken = generateAccessToken({
+        const accessToken = generateAccessToken({
           id: userId,
           email,
         });
+        res
+          .status(200)
+          .cookie("accessToken", accessToken, {
+            httpOnly: true,
+          })
+          .send({
+            data: {
+              accessToken: accessToken,
+            },
+            message: "ok",
+          });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
-        accessToken = generateAccessToken(signUpGoogle);
-      }
-      res
-        .cookie("accessToken", accessToken, {
+        const accessToken = generateAccessToken(signUpGoogle);
+        res.cookie("accessToken", accessToken, {
           httpOnly: true,
-        })
-        .redirect("http://webmarker.link");
+        });
+      }
+      res.redirect("http://webmarker.link");
     } catch (err) {
       res.status(500).json({ data: null, message: "internal server err" });
     }
