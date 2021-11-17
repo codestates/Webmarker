@@ -6,6 +6,7 @@ import Axios from "axios";
 import { selectBookmark } from "../actions/selectBookmark";
 import axios from "axios";
 import { setFolders } from "../actions/folder";
+import Tag from "./Tag";
 
 function AddBookmarkInfo() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function AddBookmarkInfo() {
         "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
         {
           headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
       )
@@ -128,23 +129,27 @@ function AddBookmarkInfo() {
   const closeEdit = () => {
     setIsEditMode(false);
     dispatch(selectBookmark(null));
+    setBookmarkInfo({
+      ...bookmarkInfo,
+      tag: "",
+    });
   };
   const removeBookmark = () => {};
-  Axios.delete(
-    // `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks/${selectBookmarkId}`,
-    "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-    {
-      id: selectBookmarkId,
-    },
-    {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    }
-  ).then(() => {
-    alert("삭제 완료!");
-    getFolders();
-  });
+  // Axios.delete(
+  //   // `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks/${selectBookmarkId}`,
+  //   "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+  //   {
+  //     id: selectBookmarkId,
+  //   },
+  //   {
+  //     headers: {
+  //       authorization: "Bearer " + localStorage.getItem("token"),
+  //     },
+  //   }
+  // ).then(() => {
+  //   alert("삭제 완료!");
+  //   getFolders();
+  // });
   useEffect(() => {
     if (selectData === null) {
       setBookmarkInfo({
@@ -185,14 +190,6 @@ function AddBookmarkInfo() {
           onChange={bookmarkInfoHandler}
         />
         <input
-          name="tag"
-          value={bookmarkInfo.tag}
-          className="title-input"
-          type="text"
-          placeholder="TAG"
-          onChange={bookmarkInfoHandler}
-        />
-        <input
           name="url"
           value={bookmarkInfo.url}
           className="title-input"
@@ -200,6 +197,7 @@ function AddBookmarkInfo() {
           placeholder="URL"
           onChange={bookmarkInfoHandler}
         />
+        <Tag taginfo={bookmarkInfo.tag} />
       </div>
       <div id="cke-wrapper">
         <CKEditor
