@@ -1,21 +1,18 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Bookmarks", {
+    await queryInterface.createTable("Social_Logins", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      type: {
         type: Sequelize.STRING,
       },
-      url: {
+      sns_id: {
         type: Sequelize.STRING,
-      },
-      content: {
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -30,6 +27,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Bookmarks");
+    await queryInterface.dropTable("Social_Logins");
   },
 };

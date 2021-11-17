@@ -13,9 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmarks_Folder.init(
     {
-      id: {
+      folderId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+      },
+      bookmarkId: {
+        type: DataTypes.INTEGER,
       },
     },
     {

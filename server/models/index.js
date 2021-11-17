@@ -1,17 +1,20 @@
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
 
 let sequelize;
 // 데이터베이스와 연결을 진행합니다.
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(
+    process.env[config.use_env_variable],
+    config
+  );
 } else {
   sequelize = new Sequelize(
     config.database,
@@ -24,7 +27,9 @@ if (config.use_env_variable) {
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+      file.indexOf(".") !== 0 &&
+      file !== basename &&
+      file.slice(-3) === ".js"
     );
   })
   .forEach((file) => {
@@ -46,17 +51,36 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // 테이블 간 관계 정의
-const {User, Folder, Bookmark, Tag} = sequelize.models;
+const { User, Folder, Bookmark, Tag, Social_Login } =
+  sequelize.models;
 // 폴더 모델은 유저 모델에 종속되며
 Folder.belongsTo(User);
 // 유저 모델은 여러개의 폴더 모델을 가질 수 있다.
 User.hasMany(Folder);
 // 폴더와 북마크는 M:N
-Folder.belongsToMany(Bookmark, {through: "Bookmarks_Folders"});
-Bookmark.belongsToMany(Folder, {through: "Bookmarks_Folders"});
+Folder.belongsToMany(Bookmark, {
+  through: "Bookmarks_Folders",
+  as: "Bookmarks",
+  foreignKey: "folderId",
+});
+Bookmark.belongsToMany(Folder, {
+  through: "Bookmarks_Folders",
+  as: "Folders",
+  foreignKey: "bookmarkId",
+});
 // 북마크와 태그는 M:N
-Bookmark.belongsToMany(Tag, {through: "Bookmarks_Tags"});
-Tag.belongsToMany(Bookmark, {through: "Bookmarks_Tags"});
+Bookmark.belongsToMany(Tag, {
+  through: "Bookmarks_Tags",
+  as: "Tags",
+  foreignKey: "bookmarkId",
+});
+Tag.belongsToMany(Bookmark, {
+  through: "Bookmarks_Tags",
+  as: "Bookmarks",
+  foreignKey: "tagId",
+});
 
-
+// 유저와 소셜로그인 테이블 1:N
+Social_Login.belongsTo(User);
+User.hasMany(Social_Login);
 module.exports = db;

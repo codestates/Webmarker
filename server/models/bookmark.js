@@ -13,11 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmark.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
-      title: DataTypes.STRING,
+      name: DataTypes.STRING,
       url: DataTypes.STRING,
       content: DataTypes.TEXT,
     },

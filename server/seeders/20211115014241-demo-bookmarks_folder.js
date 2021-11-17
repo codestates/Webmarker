@@ -5,11 +5,15 @@ module.exports = {
     await queryInterface.bulkInsert("Bookmarks_Folders", [
       {
         bookmarkId: 1,
-        folderId: 2,
+        folderId: 1,
       },
       {
         bookmarkId: 2,
-        folderId: 3,
+        folderId: 1,
+      },
+      {
+        bookmarkId: 3,
+        folderId: 2,
       },
     ]);
   },
