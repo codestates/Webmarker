@@ -47,9 +47,7 @@ module.exports = {
         message: "Succeed Getting User's Bookmark Information",
       });
     } catch (err) {
-      res
-        .status(500)
-        .json({ data: null, message: "internal server error" });
+      res.status(500).json({ data: null, message: "internal server error" });
     }
   },
   addBookmark: async (req, res) => {
@@ -95,9 +93,7 @@ module.exports = {
         res.status(400).json({ data: null, message: "bad request" });
       }
     } catch (err) {
-      res
-        .status(500)
-        .json({ data: null, message: "internal server error" });
+      res.status(500).json({ data: null, message: "internal server error" });
     }
   },
   updateBookmark: async (req, res) => {
@@ -112,93 +108,59 @@ module.exports = {
     console.log("tokenData: " + tokenData);
     // 요청을 제대로 하였는가?
     // id는 bookmarkId
-    const {
-      id,
-      title,
-      url,
-      content,
-      tagId,
-      tagName,
-      folderId,
-      folderName,
-    } = req.body;
-    if (!id)
+
+    if (!req.body.id) {
       res.status(400).json({ data: null, message: "bad request" });
+    }
+
+    const keys = Object.keys(req.body);
+    const bookmarkObj = Object.assign({}, req.body);
+    const tags = bookmarkObj.tag.slice();
+    delete bookmarkObj.tag;
+    console.log(bookmarkObj);
+
     try {
-      // 요청에 따른 데이터 수정있다면
-      let bookmarkData, tagData, folderData;
-      if (title && url && content) {
-        // 타이틀, url, 콘텐츠 수정 요청이 있다면
-        bookmarkData = await Bookmark.update(
-          { title, url, content },
-          { where: { id } }
-        );
-      } else if (title && url) {
-        bookmarkData = await Bookmark.update(
-          { title, url },
-          { where: { id } }
-        );
-      } else if (title && content) {
-        bookmarkData = await Bookmark.update(
-          { title, content },
-          { where: { id } }
-        );
-      } else if (url && content) {
-        bookmarkData = await Bookmark.update(
-          { url, content },
-          { where: { id } }
-        );
-      } else if (url) {
-        bookmarkData = await Bookmark.update(
-          { url },
-          { where: { id } }
-        );
-      } else if (content) {
-        bookmarkData = await Bookmark.update(
-          { content },
-          { where: { id } }
-        );
-      } else {
-        bookmarkData = await Bookmark.updata(
-          { title },
-          { where: { id } }
-        );
+      for (let key in bookmarkObj) {
+        if (key === "id") {
+          continue;
+        } else if (key === "name") {
+          await Bookmark.update(
+            { name: bookmarkObj.name },
+            { where: { id: bookmarkObj.id } }
+          );
+        } else if (key === "url") {
+          await Bookmark.update(
+            { url: bookmarkObj.url },
+            { where: { id: bookmarkObj.id } }
+          );
+        } else if (key === "content") {
+          await Bookmark.update(
+            { content: bookmarkObj.content },
+            { where: { id: bookmarkObj.id } }
+          );
+        }
       }
 
-      // 태그 정보도 수정이 있을 경우
-      // 관련된 태그를 삭제하고 다시 생성한다음에
-      if (tagId && tagName) {
-        tagData = await Tag.update(
-          { name: tagName },
-          { where: { id: tagId } }
-        );
+      if (!!tags) {
+        for (let el of tags) {
+          if (el.delete) {
+            await Tag.destroy({ where: { id: el.id } });
+          } else {
+            const newTag = await Tag.create({ name: el.name });
+            await Bookmarks_Tag.create({
+              bookmarkId: bookmarkObj.id,
+              tagId: newTag.dataValues.id,
+            });
+          }
+        }
       }
 
-      // 폴더명 변경 요청이 있을 경우
-      if (folderId && folderName) {
-        folderData = await Folder.update(
-          { name: folderName },
-          { where: { id: folderId } }
-        );
-      }
-
-      res.status(201).json({
-        data: {
-          bookmark: {
-            id: bookmarkData.dataValues.id,
-            title: bookmarkData.dataValues.title,
-            content: bookmarkData.dataValues.content,
-            url: bookmarkData.dataValues.url,
-          },
-          tag: tagData,
-          folder: folderData,
-        },
+      res.status(201).send({
+        data: null,
         message: "Succeed to update a bookmark",
       });
     } catch (err) {
-      res
-        .status(500)
-        .json({ data: null, message: "internal server error" });
+      res.status(500).send({ data: null, message: "internal server error" });
     }
   },
   moveBookmark: async (req, res) => {
@@ -237,9 +199,7 @@ module.exports = {
         });
       }
     } catch (err) {
-      res
-        .status(500)
-        .json({ data: null, message: "internal server error" });
+      res.status(500).json({ data: null, message: "internal server error" });
     }
   },
   deleteBookmark: async (req, res) => {
@@ -254,8 +214,7 @@ module.exports = {
     // 요청을 제대로 하였는가?
     const { id } = req.body; // id는 bookmarkId
     // console.log(id);
-    if (!id)
-      res.status(400).json({ data: null, message: "bad request" });
+    if (!id) res.status(400).json({ data: null, message: "bad request" });
 
     // 해당하는 북마크 아이디의 데이터 삭제
     try {
