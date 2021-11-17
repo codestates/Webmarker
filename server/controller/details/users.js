@@ -194,6 +194,7 @@ module.exports = {
       }
       res
         .cookie("accessToken", accessToken, {
+          maxAge: 60 * 60 * 24,
           httpOnly: true,
           secure: true,
           sameSite: "none",
