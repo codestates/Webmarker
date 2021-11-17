@@ -194,6 +194,7 @@ module.exports = {
       }
       res
         .cookie("accessToken", accessToken, {
+          domain: "webmarker.link",
           maxAge: 24 * 6 * 60 * 10000,
           httpOnly: true,
           secure: true,
