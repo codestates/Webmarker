@@ -195,6 +195,7 @@ module.exports = {
       res
         .cookie("accessToken", accessToken, {
           httpOnly: true,
+          secure: true,
         })
         .redirect("https://webmarker.link");
     } catch (err) {
