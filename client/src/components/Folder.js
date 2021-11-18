@@ -39,14 +39,11 @@ function Folder({ id, name, userId, bookmarks }) {
 
   const fetchFolders = () => {
     axios
-      .get(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-        {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .get("https://server.webmarker.link/bookmarks", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         const folders = response.data.data.folders;
         dispatch(setFolders(folders));
@@ -55,7 +52,7 @@ function Folder({ id, name, userId, bookmarks }) {
 
   const removeFolder = () => {
     Axios.delete(
-      `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/folders/${id}`,
+      `https://server.webmarker.link/folders/${id}`,
 
       {
         headers: {
@@ -71,7 +68,7 @@ function Folder({ id, name, userId, bookmarks }) {
   const moveBookmark = () => {
     axios
       .patch(
-        `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks/${selectBookmarkId}`,
+        `https://server.webmarker.link/bookmarks/${selectBookmarkId}`,
         {
           folderId: id,
         },
@@ -92,15 +89,17 @@ function Folder({ id, name, userId, bookmarks }) {
       {isMoveMode ? (
         <div className="background" onClick={moveBookmark} />
       ) : null}
-      <div className="single-folder">
-        {name}
-        <button className="delete-btn" onClick={removeFolder}>
-          삭제
-        </button>
-      </div>
       {filteredBookmarks.length === 0 ? (
-        <span>저장된 북마크가 없습니다.</span>
+        <div className="single-folder">
+          <div className="folder-name-wrapper">
+            <div className="folder-name">{name}</div>
+            <button className="delete-btn" onClick={removeFolder}>
+              X
+            </button>
+          </div>
+        </div>
       ) : (
+        // {/* <span>저장된 북마크가 없습니다.</span> */}
         <div className="single-folder">
           <div className="folder-name-wrapper">
             <div className="folder-name">{name}</div>

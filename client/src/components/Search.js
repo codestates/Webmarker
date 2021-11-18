@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 //북마크를 찾는 검색바
-
 function Search({ onSearch, onReset }) {
   const [keyword, setKeyword] = useState("");
   const existOnReset = typeof onReset === "function";
