@@ -114,8 +114,9 @@ module.exports = {
     }
 
     const bookmarkObj = Object.assign({}, req.body);
-    const tags = bookmarkObj.tag.slice();
+    let tags;
     if (bookmarkObj.tag) {
+      tags = bookmarkObj.tag.slice();
       delete bookmarkObj.tag;
     }
 
