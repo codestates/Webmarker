@@ -14,17 +14,16 @@
 - 북마크 검색 기능
 
 ## 🏗 architecture stack
-![node-lts](https://img.shields.io/node/v-lts/express?logo=express&style=for-the-badge)
-![node-lts](https://img.shields.io/node/v-lts/sequelize?logo=sequelize&style=for-the-badge)
+![](https://github.com/codestates/Webmarker/blob/dev/.github/public/architecture.png)
 
 ## ⚙️ flawChart
 더 궁금하시다면? 👉 [WIKI](https://github.com/codestates/Webmarker/wiki)
 
 #### Signup Page
-![](https://github.com/codestates/Webmarker/blob/dev/.github/signup.jpg)
+![](https://github.com/codestates/Webmarker/blob/dev/.github/public/signup.jpg)
 #### Login Page
-![](https://github.com/codestates/Webmarker/blob/dev/.github/loginpage.jpg)
+![](https://github.com/codestates/Webmarker/blob/dev/.github/public/loginpage.jpg)
 #### Mypage
-![](https://github.com/codestates/Webmarker/blob/dev/.github/mypage.jpg)
+![](https://github.com/codestates/Webmarker/blob/dev/.github/public/mypage.jpg)
 #### Main Page
-![](https://github.com/codestates/Webmarker/blob/dev/.github/mainpage.jpg)
+![](https://github.com/codestates/Webmarker/blob/dev/.github/public/mainpage.jpg)
