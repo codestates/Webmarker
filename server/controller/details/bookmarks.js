@@ -44,10 +44,14 @@ module.exports = {
 
       res.status(200).json({
         data: { folders: result },
-        message: "Succeed Getting User's Bookmark Information",
+        message:
+          "Succeed Getting User's Bookmark Information",
       });
     } catch (err) {
-      res.status(500).json({ data: null, message: "internal server error" });
+      res.status(500).json({
+        data: null,
+        message: "internal server error",
+      });
     }
   },
   addBookmark: async (req, res) => {
@@ -69,10 +73,11 @@ module.exports = {
           url,
           content,
         });
-        const bookmarksFolders = await Bookmarks_Folder.create({
-          folderId,
-          bookmarkId: bookmarkData.dataValues.id,
-        });
+        const bookmarksFolders =
+          await Bookmarks_Folder.create({
+            folderId,
+            bookmarkId: bookmarkData.dataValues.id,
+          });
         // console.log(bookmarksFolders);
         if (!!tag) {
           tag.forEach(async (item) => {
@@ -90,10 +95,15 @@ module.exports = {
           message: "bookmark added!",
         });
       } else {
-        res.status(400).json({ data: null, message: "bad request" });
+        res
+          .status(400)
+          .json({ data: null, message: "bad request" });
       }
     } catch (err) {
-      res.status(500).json({ data: null, message: "internal server error" });
+      res.status(500).json({
+        data: null,
+        message: "internal server error",
+      });
     }
   },
   updateBookmark: async (req, res) => {
@@ -110,7 +120,9 @@ module.exports = {
     // id는 bookmarkId
 
     if (!req.body.id) {
-      res.status(400).json({ data: null, message: "bad request" });
+      res
+        .status(400)
+        .json({ data: null, message: "bad request" });
     }
 
     const bookmarkObj = Object.assign({}, req.body);
@@ -147,7 +159,9 @@ module.exports = {
           if (el.delete) {
             await Tag.destroy({ where: { id: el.id } });
           } else {
-            const newTag = await Tag.create({ name: el.name });
+            const newTag = await Tag.create({
+              name: el.name,
+            });
             await Bookmarks_Tag.create({
               bookmarkId: bookmarkObj.id,
               tagId: newTag.dataValues.id,
@@ -161,7 +175,10 @@ module.exports = {
         message: "Succeed to update a bookmark",
       });
     } catch (err) {
-      res.status(500).send({ data: null, message: "internal server error" });
+      res.status(500).send({
+        data: null,
+        message: "internal server error",
+      });
     }
   },
   moveBookmark: async (req, res) => {
@@ -175,32 +192,26 @@ module.exports = {
       });
     }
     // 요청을 제대로 하였는가?
-    const { folderId } = req.params;
-    const { newFolderId, bookmarkId } = req.body;
-    if (!bookmarkId || !folderId || !newFolderId)
-      res.status(400).json({ data: null, message: "bad request" });
+    const { id } = req.params;
+    const { folderId } = req.body;
+    if (!id || !folderId)
+      res
+        .status(400)
+        .json({ data: null, message: "bad request" });
     try {
-      const findData = await Bookmarks_Folder.findOne({
-        attributes: ["id", "bookmarkId", "folderId"],
-        where: { bookmarkId, folderId },
+      const result = await Bookmarks_Folder.update(
+        { folderId },
+        { where: { bookmarkId: id } }
+      );
+      res.status(201).json({
+        data: { folderId, bookmarkId: id },
+        message: "Succeed to move a bookmark",
       });
-      if (!findData) {
-        res.status(409).json({ data: null, message: "not exists" });
-      } else {
-        console.log(findData.dataValues.id);
-        const result = await Bookmarks_Folder.update(
-          {
-            folderId: newFolderId,
-          },
-          { where: { id: findData.dataValues.id } }
-        );
-        res.status(201).json({
-          data: { result },
-          message: "Succeed to move a bookmark",
-        });
-      }
     } catch (err) {
-      res.status(500).json({ data: null, message: "internal server error" });
+      res.status(500).json({
+        data: null,
+        message: "internal server error",
+      });
     }
   },
   deleteBookmark: async (req, res) => {
@@ -215,7 +226,10 @@ module.exports = {
     // 요청을 제대로 하였는가?
     const { id } = req.params; // id는 bookmarkId
     // console.log(id);
-    if (!id) res.status(400).json({ data: null, message: "bad request" });
+    if (!id)
+      res
+        .status(400)
+        .json({ data: null, message: "bad request" });
 
     // 해당하는 북마크 아이디의 데이터 삭제
     try {
