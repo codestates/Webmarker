@@ -1,20 +1,15 @@
 import { useState } from "react";
 
 const SelectBox = ({ options, onSelect }) => {
-  const [selectIdx, setSelectIdx] = useState(0);
-
   return (
-    <select className="select-box">
+    <select
+      onChange={(e) => {
+        onSelect(e.target.value);
+      }}
+      className="select-box"
+    >
       {options.map((option, idx) => (
-        <option
-          key={idx}
-          onClick={() => {
-            onSelect(option.value);
-            setSelectIdx(idx);
-          }}
-        >
-          {option.name}
-        </option>
+        <option value={option.value}>{option.name}</option>
       ))}
     </select>
   );

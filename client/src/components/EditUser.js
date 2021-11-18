@@ -28,7 +28,7 @@ export default function EditUser({ handlePassword, handleChangePassowrd }) {
   const deleteConfirm = () => {
     console.log("삭제했습니다.");
     axios
-      .delete("https://server.webmarker.link//users", {
+      .delete("https://server.webmarker.link/users", {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
