@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 function LoginPage() {
   return (
-    <div>
+    <div id="login-page-wrapper">
       <center id="login-page">
         <img
           id="login-logo"

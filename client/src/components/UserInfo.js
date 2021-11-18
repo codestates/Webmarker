@@ -23,10 +23,10 @@ function UserInfoPage({ handleOnMyPage, userId }) {
   const checkPassword = () => {
     axios
       .get(
-        `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/password/${newPassword.password}`,
+        `https://server.webmarker.link/users/password/${newPassword.password}`,
         {
           headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            authorization: `Bearer ${window.localStorage.getItem("token")}`,
           },
         }
       )
@@ -67,7 +67,7 @@ function UserInfoPage({ handleOnMyPage, userId }) {
   //비밀번호 변경 요청하는 함수
 
   return (
-    <section>
+    <section id="userinfo-page-wrapper">
       <div id="userinfo-wrapper">
         <center>
           <div id="userinfo-title">WebMarker 회원정보</div>

@@ -11,6 +11,11 @@
 } */
 
 /* 로그인 페이지 CSS */
+#login-page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 #login-page {
   margin-top: 10.5rem;
 }
@@ -56,17 +61,21 @@
 }
 
 .login-text-section {
-  margin-bottom: 10rem;
+  margin-bottom: 7rem;
 }
 
 .login-text-wrapper {
   margin: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .login-text {
   text-decoration: none;
   color: #717171;
   font-size: 1rem;
+  margin: 0.1rem;
+  cursor: pointer;
 }
 
 .login-text:hover {
@@ -83,30 +92,9 @@ a:visited {
   text-decoration: none;
 }
 
-/* footer */
-#footer {
-  margin-top: 2rem;
-  position: absolute;
-  top: 54rem;
-  left: 50rem;
-}
-
-#footer-title {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.footer-text {
-  color: #717171;
-  font-size: 0.9rem;
-}
-
-#footer-logo {
-  width: 100px;
-  margin-left: 0.5rem;
-  margin-right: 0.2rem;
-  position: sticky;
-  top: 60rem;
+#oauth-logo {
+  width: 20px;
+  height: 20px;
 }
 
 /* 회원가입 페이지 */
@@ -137,7 +125,7 @@ a:visited {
 .signup-btn {
   width: 133px;
   height: 2.4rem;
-  margin: 0.3rem 0.4rem 17.45rem 0.4rem;
+  margin: 0.3rem 0.4rem 18.65rem 0.4rem;
   border: 0.1rem solid #696969;
   background-color: #641eac;
   color: white;
@@ -278,7 +266,12 @@ a:visited {
 }
 
 /* 메인페이지 */
-#mainpage-wrapper {
+#main-page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#table-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 1.8rem;
@@ -323,11 +316,51 @@ a:visited {
   cursor: pointer;
 }
 
+.folder-name-wrapper {
+  display: flex;
+  margin: 0.2rem;
+}
+
+.folder-name {
+  font-weight: bold;
+  margin-top: 0.02rem;
+  color: #555555;
+}
+
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  margin-left: 7px;
+  padding: 0.281rem;
+  cursor: pointer;
+  background-color: #e7e7e7;
+  color: white;
+  box-shadow: 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+  font-size: 0.6rem;
+}
+
+.delete-btn:hover {
+  background-color: #999999;
+}
+
+.delete-btn:active {
+  font-size: 0.5rem;
+  background-color: #999999;
+  box-shadow: inset 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+}
+
+.bookmark-wrapper {
+  display: flex;
+}
+
 .bookmark {
   border: 0.15rem solid #7f50b0;
   border-radius: 0.3rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  margin-right: 0.1rem;
   background-color: #efe6f8;
   color: #3a3a3a;
   height: 40px;
@@ -336,15 +369,30 @@ a:visited {
   font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
+  flex: 1 1 auto;
+  box-shadow: 0.08rem 0.08rem rgba(0, 0, 0, 0.8);
 }
 
 .bookmark:hover {
+  box-shadow: 0.08rem 0.08rem rgba(0, 0, 0, 0.8);
   box-shadow: 0px 0px 5px #7f50b0;
 }
 
 .bookmark:active {
   margin-left: 0.08rem;
   margin-right: 0.08rem;
+  font-size: 1.19rem;
+}
+
+.lookup-btn {
+  border-radius: 0.3rem;
+  height: 40px;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  margin-left: 0.2rem;
+  background-color: #7f50b0;
+  color: white;
+  cursor: pointer;
 }
 
 .addbookmark {
@@ -352,25 +400,6 @@ a:visited {
   border-radius: 0.3rem;
   margin: 0.3rem;
   background-color: white;
-}
-
-.AddBookmarkInfo {
-  text-align: center;
-  background-color: #f0f0f0;
-  border: 2px solid #989898;
-  margin-left: 0.5rem;
-  border-radius: 0.3rem;
-  width: 35%;
-  height: 48.5rem;
-  min-width: 15rem;
-  box-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
-  transition-property: border, box-shadow;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in;
-}
-.isView {
-  border: 2px solid #641eac;
-  box-shadow: 0.2rem 0.2rem rgba(100, 30, 172, 0.6);
 }
 
 /* .disable-wrapper {
@@ -426,20 +455,28 @@ a:visited {
   box-shadow: inset 0.2rem 0.2rem rgba(0, 0, 0, 0.7);
 }
 
-.delete-btn {
-  width: 40px;
-  border: none;
-  border-radius: 0.2rem;
-  margin-left: 10px;
-  padding: 0.3rem;
-  cursor: pointer;
-  background-color: #696969;
-  color: white;
-  box-shadow: 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
-  font-size: 0.8rem;
+/* 북마크 인포 */
+.AddBookmarkInfo {
+  text-align: center;
+  background-color: #f0f0f0;
+  border: 2px solid #989898;
+  margin-left: 0.5rem;
+  border-radius: 0.3rem;
+  width: 35%;
+  height: 48.5rem;
+  min-width: 15rem;
+  box-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  transition-property: border, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+  display: flex;
+  flex-direction: column;
+}
+.isView {
+  border: 2px solid #641eac;
+  box-shadow: 0.2rem 0.2rem rgba(100, 30, 172, 0.6);
 }
 
-/* 북마크 인포 */
 #bookmarkinfo-title {
   background-color: #7f50b0;
   color: white;
@@ -478,11 +515,16 @@ a:visited {
   outline: 0.12rem solid #641eac;
 }
 
+#submit-btn-wrapper {
+  margin-top: 0.4rem;
+  background-color: #f0f0f0;
+}
+
 .submit-btn {
   width: 20%;
   min-width: 3rem;
   height: 2.4rem;
-  margin: 0.8rem;
+  margin: 0.3rem;
   border: 0.1rem solid #696969;
   background-color: #641eac;
   color: white;
@@ -507,7 +549,7 @@ a:visited {
 }
 
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-  min-height: 420px;
+  height: 420px;
   min-width: 70%;
 }
 
@@ -547,6 +589,11 @@ a:visited {
 }
 
 /* 회원정보 페이지 CSS */
+#userinfo-page-wrapper {
+  flex: 1 1 auto;
+  height: 770px;
+}
+
 #userinfo-wrapper {
   margin-top: 11rem;
 }
@@ -653,4 +700,28 @@ a:visited {
 }
 .hidden-list div + div {
   border-top: 1px solid black;
+}
+
+/* footer */
+#footer {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+#footer-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.footer-text {
+  color: #717171;
+  font-size: 0.9rem;
+}
+
+#footer-logo {
+  width: 100px;
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+  position: sticky;
+  top: 60rem;
 }

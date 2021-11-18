@@ -101,9 +101,17 @@ function Folder({ id, name, userId, bookmarks }) {
       {filteredBookmarks.length === 0 ? (
         <span>저장된 북마크가 없습니다.</span>
       ) : (
-        filteredBookmarks.map((item) => (
-          <Bookmark id={item.id} title={item.name} />
-        ))
+        <div className="single-folder">
+          <div className="folder-name-wrapper">
+            <div className="folder-name">{name}</div>
+            <button className="delete-btn" onClick={removeFolder}>
+              X
+            </button>
+          </div>
+          {filteredBookmarks.map((item) => (
+            <Bookmark id={item.id} title={item.name} url={item.url} />
+          ))}
+        </div>
       )}
       <div>
         <AddBookmark id={id} />

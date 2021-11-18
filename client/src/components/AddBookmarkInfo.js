@@ -225,6 +225,7 @@ function AddBookmarkInfo() {
           }}
         />
       </div>
+      <div id="submit-btn-wrapper">
       <button
         className="submit-btn"
         onClick={isViewMode ? setEditMode : submitReview}
@@ -245,7 +246,7 @@ function AddBookmarkInfo() {
         <button id="delete" className="submit-btn" onClick={removeBookmark}>
           삭제
         </button>
-      ) : null}
+      </div>
     </div>
   );
 }

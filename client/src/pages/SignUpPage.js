@@ -65,13 +65,10 @@ function SignUpPage() {
       signUpInfo.password === signUpInfo.passwordCheck
     ) {
       axios
-        .post(
-          "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/signup",
-          {
-            email: signUpInfo.email,
-            password: signUpInfo.password,
-          }
-        )
+        .post("https://server.webmarker.link/users/signup", {
+          email: signUpInfo.email,
+          password: signUpInfo.password,
+        })
         .then(() => {
           alert("회원가입 성공!");
           console.log("회원가입 성공!");
