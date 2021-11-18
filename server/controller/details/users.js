@@ -197,16 +197,16 @@ module.exports = {
 
       let accessToken;
       if (userId) {
-        refreshToken = generateRefreshToken({
+        accessToken = generateAccessToken({
           id: userId,
           email,
         });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
-        refreshToken = generateRefreshToken(signUpGoogle);
+        accessToken = generateAccessToken(signUpGoogle);
       }
       res
-        .cookie("refreshToken", refreshToken, {
+        .cookie("accessToken", accessToken, {
           domain: "webmarker.link",
           httpOnly: true,
         })
@@ -219,12 +219,9 @@ module.exports = {
   },
   // refreshToken -> accessToken 클라이언트에 전달
   sendToken: (req, res) => {
-    const { refreshToken } = req.cookies;
+    const { accessToken } = req.cookies;
     try {
-      const tokenData = checkRefreshToken(refreshToken);
-
-      if (tokenData) {
-        const accessToken = generateAccessToken(tokenData);
+      if (accessToken) {
         res.status(200).send({
           data: {
             accessToken,
@@ -232,9 +229,9 @@ module.exports = {
           message: "ok",
         });
       } else {
-        res.status(401).send({
+        res.status(404).send({
           data: null,
-          message: "잘못된 토큰 정보입니다",
+          message: "토큰이 존재하지 않습니다",
         });
       }
     } catch (err) {
