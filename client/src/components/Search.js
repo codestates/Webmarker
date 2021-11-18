@@ -31,6 +31,7 @@ function Search({ onSearch, onReset }) {
           onChange={changeKeyword}
           id="search-box"
           type="text"
+          value={keyword}
           placeholder="북마크 검색"
         />
         {existOnReset ? <span onClick={resetHandler}>X</span> : null}

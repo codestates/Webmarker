@@ -70,11 +70,7 @@ export const TagsInput = styled.div`
   }
 `;
 
-export default function Tag({ taginfo }) {
-  useEffect(() => {
-    setTags([taginfo]);
-  }, [taginfo]);
-
+export default function Tag({ values, onChange }) {
   const [tags, setTags] = useState([]);
   const removeTags = (indexToRemove) => {
     let tmpArr = [...tags];
@@ -97,11 +93,18 @@ export default function Tag({ taginfo }) {
     }
   };
 
+  useEffect(() => {
+    if (typeof onChange === "function") {
+      onChange(tags);
+    }
+  }, [onChange, tags]);
+
+
   return (
     <>
       <TagsInput>
         <ul id="tags">
-          {tags.map((tag, index) => (
+          {(values ?? tags).map((tag, index) => (
             <li key={index} className="tag">
               <span className="tag-title">{tag}</span>
               <span
