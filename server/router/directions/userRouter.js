@@ -11,5 +11,5 @@ router.delete("/", controller.users.withdrawal);
 // 구글 로그인 관련
 router.get("/auth/google", controller.users.google);
 router.get("/auth/google/callback", controller.users.googleCallback);
-router.get("/auth/sendToken", controller.users.sendToken);
+router.post("/auth/sendToken", controller.users.sendToken);
 module.exports = router;
