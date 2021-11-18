@@ -1,0 +1,744 @@
+* {
+  box-sizing: border-box;
+  background-color: #fdfdfd;
+  margin: 0px;
+}
+
+/* @font-face {
+  font-family: "NanumBarunGothic";
+  src: url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumBarunGothic/NanumBarunGothicWeb.woff)
+    format("woff");
+} */
+
+/* 로그인 페이지 CSS */
+#login-page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-page {
+  margin-top: 10.5rem;
+}
+
+#login-logo {
+  width: 18%;
+}
+
+.login-box {
+  width: 15%;
+  height: 2.4rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.login-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+#login-btn {
+  width: 15%;
+  height: 2.4rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+#login-btn:hover {
+  box-shadow: inset 0.09rem 0.09rem rgba(0, 0, 0, 0.6);
+}
+
+#login-btn:active {
+  font-size: 1.185rem;
+  box-shadow: inset 0.2rem 0.2rem rgba(0, 0, 0, 0.7);
+}
+
+.login-text-section {
+  margin-bottom: 7rem;
+}
+
+.login-text-wrapper {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.login-text {
+  text-decoration: none;
+  color: #717171;
+  font-size: 1rem;
+  margin: 0.1rem;
+  cursor: pointer;
+}
+
+.login-text:hover {
+  color: #641eac;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #4c4c4c;
+  text-decoration: none;
+}
+
+#oauth-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* 회원가입 페이지 */
+#signup-wrapper {
+  margin-top: 14rem;
+}
+
+#signup-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.3rem 0.3rem;
+}
+
+.signup-box {
+  width: 290px;
+  height: 48px;
+  padding-left: 0.5rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.signup-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+.signup-btn {
+  width: 137.8px;
+  height: 2.4rem;
+  margin: 0.3rem 0.4rem 18.65rem 0.4rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.signup-btn:hover {
+  box-shadow: inset 0.09rem 0.09rem rgba(0, 0, 0, 0.6);
+}
+
+.signup-btn:active {
+  font-size: 0.99rem;
+  box-shadow: inset 0.18rem 0.18rem rgba(0, 0, 0, 0.6);
+}
+
+.invalid-feedback {
+  color: #dc143c;
+  font-weight: bold;
+  margin: 0.4rem;
+}
+
+/* Nav Bar */
+#title-bar {
+  background-color: #641eac;
+  height: 58px;
+  display: flex;
+  justify-content: space-between;
+}
+#title-bar > div {
+  display: flex;
+  align-items: center;
+}
+#title-bar > div:nth-child(2) {
+  margin-right: 1rem;
+}
+#title-bar * {
+  background: none;
+}
+
+#title-bar img {
+  background-color: unset;
+}
+
+#main-title-logo {
+  width: 180px;
+  background-color: #641eac;
+  position: relative;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+#maypage-text-wrapper {
+  position: sticky;
+  top: 1.3rem;
+  left: 110rem;
+  background-color: #641eac;
+}
+
+.mypage-text {
+  width: 70px;
+  color: white;
+  background-color: #641eac;
+  margin: 0.5rem;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.mypage-text:hover {
+  text-shadow: 0 0 7px #fff;
+}
+
+.mypage-text:active {
+  text-shadow: 0 0 7px #fff;
+  font-size: 15.8px;
+}
+
+#search-bar {
+  position: relative;
+  display: flex;
+}
+
+#search-bar .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#search-bar .input-wrapper span {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  cursor: pointer;
+}
+
+#search-box {
+  width: 100%;
+  height: 2rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+  text-align: justify;
+}
+
+#search-btn {
+  width: 40px;
+  height: 2rem;
+  margin-left: 0.2rem;
+  border: 0.1rem solid #696969;
+  background-color: white;
+  color: #641eac;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+#search-btn:hover {
+  box-shadow: inset 0.07rem 0.07rem rgba(0, 0, 0, 0.6);
+}
+
+#search-btn:active {
+  margin-top: 2px;
+  box-shadow: inset 0.1rem 0.1rem rgba(0, 0, 0, 0.6);
+}
+
+#reset-btn {
+  margin-top: 0.35rem;
+  color: #9c9c9c;
+  font-size: 1rem;
+}
+
+#reset-btn:hover {
+  color: #585858;
+}
+
+#reset-btn:active {
+  color: #585858;
+  font-size: 0.99rem;
+}
+
+.select-box {
+  height: 2rem;
+  border: 0.1rem solid #696969;
+  background-color: white;
+  color: #641eac;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+/* 메인페이지 */
+#main-page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.8rem;
+}
+
+/* 북마크리스트 */
+#bookmark-list-wrapper {
+  width: 35%;
+  height: 48.5rem;
+  min-width: 15rem;
+  border: 2px solid #989898;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  background-color: #f0f0f0;
+  overflow: auto;
+}
+
+.folder-wrapper {
+  position: relative;
+  border: 0.15rem solid #989898;
+  width: 95%;
+  max-height: 20rem;
+  margin: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: white;
+  overflow: auto;
+}
+.folder-wrapper .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0.3rem;
+  background-color: rgb(0, 0, 0, 0.5);
+  transition: 300ms background;
+  width: 100%;
+  height: 100%;
+}
+
+.folder-wrapper:hover .background {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.folder-name-wrapper {
+  display: flex;
+  margin: 0.2rem;
+}
+
+.folder-name {
+  font-weight: bold;
+  margin-top: 0.02rem;
+  color: #555555;
+}
+
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  margin-left: 7px;
+  padding: 0.281rem;
+  cursor: pointer;
+  background-color: #e7e7e7;
+  color: white;
+  box-shadow: 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+  font-size: 0.6rem;
+}
+
+.delete-btn:hover {
+  background-color: #999999;
+}
+
+.delete-btn:active {
+  font-size: 0.5rem;
+  background-color: #999999;
+  box-shadow: inset 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+}
+
+.bookmark-wrapper {
+  display: flex;
+}
+
+.bookmark {
+  border: 0.15rem solid #7f50b0;
+  border-radius: 0.3rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  margin-right: 0.1rem;
+  background-color: #efe6f8;
+  color: #3a3a3a;
+  height: 40px;
+  padding: 0.53rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  flex: 1 1 auto;
+  box-shadow: 0.08rem 0.08rem rgba(0, 0, 0, 0.8);
+}
+
+.bookmark:hover {
+  box-shadow: 0.08rem 0.08rem rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 5px #7f50b0;
+}
+
+.bookmark:active {
+  margin-left: 0.08rem;
+  margin-right: 0.08rem;
+  font-size: 1.19rem;
+}
+
+.lookup-btn {
+  border-radius: 0.3rem;
+  height: 40px;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  margin-left: 0.2rem;
+  background-color: #7f50b0;
+  color: white;
+  cursor: pointer;
+}
+
+.addbookmark {
+  border: 0.15rem dotted #bdbdbd;
+  border-radius: 0.3rem;
+  margin: 0.3rem;
+  background-color: white;
+}
+
+.form-wrapper {
+  margin-top: 1rem;
+  width: 100%;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+#bookmark-title {
+  background-color: #7f50b0;
+  color: white;
+  font-size: 20px;
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+  padding: 0.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.add-folder {
+  border: 0.18rem dashed #989898;
+  width: 95%;
+  margin: 0.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.add-folder:hover {
+  box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.4);
+}
+
+.add-btn {
+  border: 0.1rem solid #641eac;
+  margin: 0.3rem;
+  cursor: pointer;
+  background-color: #641eac;
+  color: white;
+  box-shadow: 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+}
+
+.add-btn:hover {
+  box-shadow: inset 0.1rem 0.1rem rgba(0, 0, 0, 0.7);
+}
+
+.add-btn:active {
+  font-size: 0.88rem;
+  box-shadow: inset 0.2rem 0.2rem rgba(0, 0, 0, 0.7);
+}
+
+/* 북마크 인포 */
+.AddBookmarkInfo {
+  text-align: center;
+  background-color: #f0f0f0;
+  border: 2px solid #989898;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+  width: 35%;
+  height: 48.5rem;
+  min-width: 15rem;
+  box-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  transition-property: border, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+  display: flex;
+  flex-direction: column;
+}
+.isView {
+  border: 2px solid #641eac;
+  box-shadow: 0.2rem 0.2rem rgba(100, 30, 172, 0.6);
+}
+
+#bookmarkinfo-title {
+  background-color: #7f50b0;
+  color: white;
+  font-size: 20px;
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+  padding: 0.3rem;
+  font-weight: bold;
+  transition: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+}
+
+#bookmarkinfo-title-view {
+  background-color: #6a23b2;
+  color: white;
+  font-size: 20px;
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+  padding: 0.3rem;
+  font-weight: bold;
+}
+
+.title-input {
+  width: 70%;
+  height: 3.2rem;
+  margin: 0.3rem;
+  padding: 0 8px;
+  background-color: white;
+  border: 0.1rem solid #acacac;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.title-input:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+#submit-btn-wrapper {
+  margin-top: 0.4rem;
+  background-color: #f0f0f0;
+}
+
+.submit-btn {
+  width: 20%;
+  min-width: 3rem;
+  height: 2.4rem;
+  margin: 0.3rem;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0.05rem 0.05rem rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:hover {
+  box-shadow: inset 0.1rem 0.1rem rgba(0, 0, 0, 0.7);
+}
+
+.submit-btn:active {
+  font-size: 0.99rem;
+  box-shadow: inset 0.2rem 0.2rem rgba(0, 0, 0, 0.7);
+}
+
+#delete {
+  background-color: #dc143c;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  height: 420px;
+  min-width: 70%;
+  overflow: auto;
+}
+
+#cke-wrapper {
+  background-color: #f0f0f0;
+}
+
+#cke {
+  background-color: #f0f0f0;
+}
+
+.single-folder {
+  font-weight: bold;
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  text-align: justify;
+  background-color: white;
+}
+
+.link {
+  background-color: #641eac;
+}
+
+.disable-wrapper {
+  z-index: 2;
+  width: 35%;
+  height: 42.1rem;
+  min-width: 15rem;
+  background-color: #00000000;
+  position: absolute;
+  top: 7.6rem;
+}
+
+.disable-wrapper.hidden .ck-editor__top {
+  display: none;
+}
+
+/* 회원정보 페이지 CSS */
+#userinfo-page-wrapper {
+  flex: 1 1 auto;
+  height: 770px;
+}
+
+#userinfo-wrapper {
+  margin-top: 11rem;
+}
+
+#userinfo-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.3rem 0.3rem;
+}
+
+.userinfo-box {
+  width: 280px;
+  height: 48px;
+  padding: 0.9rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+  text-align: justify;
+}
+
+.userinfo-password-box {
+  width: 280px;
+  height: 48px;
+  padding: 0.9rem;
+  margin: 0.3rem 0.3rem;
+  border: 0.1rem solid #acacac;
+  background-color: white;
+  box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
+  border-radius: 0.3rem;
+}
+
+.userinfo-password-box:focus {
+  outline: 0.12rem solid #641eac;
+}
+
+.userinfo-btn {
+  width: 136px;
+  height: 45px;
+  margin: 4.3px;
+  border: 0.1rem solid #696969;
+  background-color: #641eac;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.userinfo-btn:hover {
+  box-shadow: inset 0.1rem 0.1rem rgba(0, 0, 0, 0.7);
+}
+
+.userinfo-btn:active {
+  font-size: 0.99rem;
+  box-shadow: inset 0.2rem 0.2rem rgba(0, 0, 0, 0.7);
+}
+
+.signout-btn {
+  width: 136px;
+  height: 45px;
+  margin: 0.2rem 0.2rem 0.5rem;
+  border: 0.1rem solid #696969;
+  background-color: #dc143c;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.signout-btn:hover {
+  box-shadow: inset 0.07rem 0.07rem rgba(0, 0, 0, 0.6);
+}
+
+.signout-btn:active {
+  box-shadow: inset 0.15rem 0.15rem rgba(0, 0, 0, 0.6);
+}
+
+.select-box {
+  width: 70px;
+  text-align: center;
+  position: relative;
+  padding: 5px;
+  margin-right: 10px;
+  margin-left: 15px;
+  background: white !important;
+}
+.select-box > div:nth-child(1) {
+  cursor: pointer;
+}
+.hidden-list {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  background: #fff !important;
+}
+.hidden-list div {
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: center;
+}
+.hidden-list div + div {
+  border-top: 1px solid black;
+}
+
+/* footer */
+#footer {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+#footer-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.footer-text {
+  color: #717171;
+  font-size: 0.9rem;
+}
+
+#footer-logo {
+  width: 100px;
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+  position: sticky;
+  top: 60rem;
+}
