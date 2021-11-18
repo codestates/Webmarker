@@ -8,16 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { loginChange } from "./actions/loginChange";
 
+axios.defaults.withCredentials = true;
+
 function App() {
   const loginState = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
 
   const getAccessToken = () => {
-    const URL = "https://server.webmarker.link/users/auth/google/sendToken";
-    axios.get(URL).then((res) => {
-      window.localStorage.setItem("token", res.data.data.accessToken);
-      dispatch(loginChange());
-    });
+    axios
+      .post("https://server.webmarker.link/users/auth/sendToken", {})
+      .then((res) => {
+        window.localStorage.setItem("token", res.data.data.accessToken);
+        dispatch(loginChange());
+      });
   };
 
   useEffect(() => {
