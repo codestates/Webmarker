@@ -12,19 +12,17 @@ function App() {
   const loginState = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
 
-  // const getAccessToken = () => {
-  // const URL = "https://server.webmarker.link/users/auth/google/callback";
-  // await axios.get(URL).then((res) => {
-  //   window.localStorage.setItem("token", res.cookie.accessToken);
-  //   console.log(res);
-  //   dispatch(loginChange());
-  // });
-  //   alert(document.cookie);
-  // };
+  const getAccessToken = () => {
+    const URL = "https://server.webmarker.link/users/auth/google/sendToken";
+    axios.get(URL).then((res) => {
+      window.localStorage.setItem("token", res.data.data.accessToken);
+      dispatch(loginChange());
+    });
+  };
 
-  // useEffect(() => {
-  //   getAccessToken();
-  // }, []);
+  useEffect(() => {
+    getAccessToken();
+  }, []);
 
   const keepLogin = () => {
     if (

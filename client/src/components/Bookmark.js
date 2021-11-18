@@ -9,7 +9,7 @@ function Bookmark({ title, id, url }) {
   };
 
   const openLink = () => {
-    window.open(`http://${url}`);
+    window.open(`${url}`);
   };
 
   return (
