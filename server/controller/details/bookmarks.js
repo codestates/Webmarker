@@ -113,11 +113,11 @@ module.exports = {
       res.status(400).json({ data: null, message: "bad request" });
     }
 
-    const keys = Object.keys(req.body);
     const bookmarkObj = Object.assign({}, req.body);
     const tags = bookmarkObj.tag.slice();
-    delete bookmarkObj.tag;
-    console.log(bookmarkObj);
+    if (bookmarkObj.tag) {
+      delete bookmarkObj.tag;
+    }
 
     try {
       for (let key in bookmarkObj) {
