@@ -2,12 +2,18 @@ const dotenv = require("dotenv");
 const axios = require("axios");
 const { token } = require("morgan");
 const db = require("../../models");
-const { generateAccessToken, checkAccessToken } = require("../tokenFunction");
+const {
+  generateAccessToken,
+  checkAccessToken,
+  generateRefreshToken,
+  checkRefreshToken,
+} = require("../tokenFunction");
 const { isExistSnsId, snsSignUp } = require("../oauthFunction");
 
 dotenv.config();
 
-const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
+const GOOGLE_AUTH_URL =
+  "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_AUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_AUTH_REDIRECT_URL =
   "https://server.webmarker.link/users/auth/google/callback";
@@ -109,7 +115,10 @@ module.exports = {
     const tokenData = checkAccessToken(req);
     const { id } = tokenData;
     const { password } = req.body;
-    const userData = await db.User.update({ password }, { where: { id } });
+    const userData = await db.User.update(
+      { password },
+      { where: { id } }
+    );
     console.log(userData);
     if (!userData) {
       res.status(400).send({
@@ -160,7 +169,8 @@ module.exports = {
         method: "POST",
         url: `${GOOGLE_AUTH_TOKEN_URL}`,
         headers: {
-          "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          "content-type":
+            "application/x-www-form-urlencoded;charset=utf-8",
         },
         params: {
           grant_type: "authorization_code", //특정 스트링
@@ -180,26 +190,55 @@ module.exports = {
         sns_id: sub,
         type: "google",
       };
-      const userId = await isExistSnsId(userInfo.type, userInfo.sns_id);
+      const userId = await isExistSnsId(
+        userInfo.type,
+        userInfo.sns_id
+      );
 
       let accessToken;
       if (userId) {
-        accessToken = generateAccessToken({
+        refreshToken = generateRefreshToken({
           id: userId,
           email,
         });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
-        accessToken = generateAccessToken(signUpGoogle);
+        refreshToken = generateRefreshToken(signUpGoogle);
       }
       res
-        .cookie("accessToken", accessToken, {
+        .cookie("refreshToken", refreshToken, {
           domain: "webmarker.link",
           httpOnly: true,
         })
         .redirect("http://webmarker.link");
     } catch (err) {
-      res.status(500).json({ data: null, message: "internal server err" });
+      res
+        .status(500)
+        .json({ data: null, message: "internal server err" });
+    }
+  },
+  // refreshToken -> accessToken 클라이언트에 전달
+  sendToken: async (req, res) => {
+    const refreshToken = req.cookies;
+    try {
+      const tokenData = await checkRefreshToken(refreshToken);
+
+      if (tokenData) {
+        const accessToken = generateAccessToken(tokenData);
+        res.status(200).send({
+          data: {
+            accessToken,
+          },
+          message: "ok",
+        });
+      } else {
+        res.status(401).send({
+          data: null,
+          message: "잘못된 토큰 정보입니다",
+        });
+      }
+    } catch (err) {
+      res.status(500).send({ data: null, message: err });
     }
   },
 };
