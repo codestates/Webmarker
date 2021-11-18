@@ -44,8 +44,7 @@ module.exports = {
 
       res.status(200).json({
         data: { folders: result },
-        message:
-          "Succeed Getting User's Bookmark Information",
+        message: "Succeed Getting User's Bookmark Information",
       });
     } catch (err) {
       res.status(500).json({
@@ -73,11 +72,10 @@ module.exports = {
           url,
           content,
         });
-        const bookmarksFolders =
-          await Bookmarks_Folder.create({
-            folderId,
-            bookmarkId: bookmarkData.dataValues.id,
-          });
+        const bookmarksFolders = await Bookmarks_Folder.create({
+          folderId,
+          bookmarkId: bookmarkData.dataValues.id,
+        });
         // console.log(bookmarksFolders);
         if (!!tag) {
           tag.forEach(async (item) => {
@@ -95,9 +93,7 @@ module.exports = {
           message: "bookmark added!",
         });
       } else {
-        res
-          .status(400)
-          .json({ data: null, message: "bad request" });
+        res.status(400).json({ data: null, message: "bad request" });
       }
     } catch (err) {
       res.status(500).json({
@@ -120,9 +116,7 @@ module.exports = {
     // id는 bookmarkId
 
     if (!req.body.id) {
-      res
-        .status(400)
-        .json({ data: null, message: "bad request" });
+      res.status(400).json({ data: null, message: "bad request" });
     }
 
     const bookmarkObj = Object.assign({}, req.body);
@@ -195,9 +189,7 @@ module.exports = {
     const { id } = req.params;
     const { folderId } = req.body;
     if (!id || !folderId)
-      res
-        .status(400)
-        .json({ data: null, message: "bad request" });
+      res.status(400).json({ data: null, message: "bad request" });
     try {
       const result = await Bookmarks_Folder.update(
         { folderId },
@@ -226,10 +218,7 @@ module.exports = {
     // 요청을 제대로 하였는가?
     const { id } = req.params; // id는 bookmarkId
     // console.log(id);
-    if (!id)
-      res
-        .status(400)
-        .json({ data: null, message: "bad request" });
+    if (!id) res.status(400).json({ data: null, message: "bad request" });
 
     // 해당하는 북마크 아이디의 데이터 삭제
     try {
@@ -243,7 +232,10 @@ module.exports = {
       });
     } catch (err) {
       //console.log(err);
-      res.status(500).send("internal server error");
+      res.status(500).send({
+        data: null,
+        message: "internal server error",
+      });
     }
   },
 };
