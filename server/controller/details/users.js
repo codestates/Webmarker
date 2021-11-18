@@ -201,7 +201,7 @@ module.exports = {
         });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
-        accessToken = generateRefreshToken(signUpGoogle);
+        accessToken = generateAccessToken(signUpGoogle);
       }
       res
         .cookie("accessToken", accessToken, {
@@ -218,10 +218,16 @@ module.exports = {
   // refreshToken -> accessToken 클라이언트에 전달
   sendToken: (req, res) => {
     const { accessToken } = req.cookies;
-
-    res.status(201).send({
-      data: { accessToken },
-      message: "잘못된 토큰 정보입니다",
-    });
+    
+    if(accessToken) {	
+      res.status(201).send({
+        data: { accessToken },
+        message: "ok",
+      });
+    } else {
+      res.status(404).send({
+        data: null, message: "not found"
+      })
+    }
   },
 };
