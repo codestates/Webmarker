@@ -4,4 +4,5 @@ export const bookMarkInitialState = {
   keyword: null,
   filterType: "name",
   login: false,
+  isMoveMode: false,
 };

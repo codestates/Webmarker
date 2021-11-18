@@ -11,16 +11,12 @@ function BookmarkList() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-        {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .get("https://server.webmarker.link/bookmarks", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
-        console.log(response.data.data.folders);
         const folders = response.data.data.folders;
         dispatch(setFolders(folders));
       })

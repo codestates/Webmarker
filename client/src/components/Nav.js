@@ -58,7 +58,12 @@ export default function Nav({ handleOnMyPage }) {
           onClick={() => handleOnMyPage(false)}
         />
         <SelectBox options={options} onSelect={selectHandler} />
-        <Search onSearch={searchHandler} />
+        <Search
+          onSearch={searchHandler}
+          onReset={() => {
+            searchHandler("");
+          }}
+        />
       </div>
       <div>
         <div className="mypage-text" onClick={() => handleOnMyPage(true)}>

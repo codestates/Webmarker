@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
-import { selectBookmark } from "../actions/selectBookmark";
+import { moveBookmark, selectBookmark } from "../actions/selectBookmark";
 import axios from "axios";
 import { setFolders } from "../actions/folder";
+import Tag from "./Tag";
 
 function AddBookmarkInfo() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function AddBookmarkInfo() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [bookmarkInfo, setBookmarkInfo] = useState({
     title: "",
-    tag: "",
+    tag: [],
     url: "",
     contents: "",
   });
@@ -39,14 +40,11 @@ function AddBookmarkInfo() {
 
   const getFolders = () => {
     axios
-      .get(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-        {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .get("https://server.webmarker.link/bookmarks", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         const folder = response.data.data.folders;
         dispatch(setFolders(folder));
@@ -58,13 +56,38 @@ function AddBookmarkInfo() {
   const submitReview = () => {
     if (selectData !== null) {
       Axios.put(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
+        "https://server.webmarker.link/bookmarks",
         {
-          id: selectBookmarkId,
+          id: selectBookmarkId.toString(),
           name: bookmarkInfo.title,
           url: bookmarkInfo.url,
           content: bookmarkInfo.contents,
-          tagName: bookmarkInfo.tag,
+          // tagName: bookmarkInfo.tag,
+        },
+        {
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+        .then(() => {
+          alert("수정 완료!");
+          getFolders();
+        })
+        .catch(() => {
+          alert("수정 실패");
+          getFolders();
+        });
+    }
+    if (selectData === null) {
+      Axios.post(
+        "https://server.webmarker.link/bookmarks",
+        {
+          name: bookmarkInfo.title,
+          tag: bookmarkInfo.tag,
+          url: bookmarkInfo.url,
+          content: bookmarkInfo.contents,
+          folderId: selectFolderId.toString(),
         },
         {
           headers: {
@@ -72,34 +95,14 @@ function AddBookmarkInfo() {
           },
         }
       ).then(() => {
-        alert("수정 완료!");
+        alert("등록 완료!");
         getFolders();
       });
-      return;
     }
-
-    Axios.post(
-      "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-      {
-        name: bookmarkInfo.title,
-        tag: bookmarkInfo.tag,
-        url: bookmarkInfo.url,
-        content: bookmarkInfo.contents,
-        folder: selectFolderId,
-      },
-      {
-        headers: {
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    ).then(() => {
-      alert("등록 완료!");
-      getFolders();
-    });
 
     setBookmarkInfo({
       title: "",
-      tag: "",
+      tag: [],
       url: "",
       contents: "",
     });
@@ -123,33 +126,46 @@ function AddBookmarkInfo() {
 
   const setEditMode = () => {
     setIsEditMode(true);
+    dispatch(moveBookmark(false));
   };
 
   const closeEdit = () => {
     setIsEditMode(false);
     dispatch(selectBookmark(null));
+    dispatch(moveBookmark(false));
+    setBookmarkInfo({
+      ...bookmarkInfo,
+    });
   };
-  const removeBookmark = () => {};
-  Axios.delete(
-    // `http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks/${selectBookmarkId}`,
-    "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/bookmarks",
-    {
-      id: selectBookmarkId,
-    },
-    {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    }
-  ).then(() => {
-    alert("삭제 완료!");
-    getFolders();
-  });
+  const removeBookmark = () => {
+    Axios.delete(
+      `https://server.webmarker.link/bookmarks/${selectBookmarkId}`,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then(() => {
+      dispatch(moveBookmark(false));
+      alert("삭제 완료!");
+      getFolders();
+    });
+  };
+  const moveFolder = () => {
+    dispatch(moveBookmark(true));
+  };
+
+  const changeTags = useCallback((tags) => {
+    setBookmarkInfo((prev) => ({
+      ...prev,
+      tag: tags,
+    }));
+  }, []);
   useEffect(() => {
     if (selectData === null) {
       setBookmarkInfo({
         title: "",
-        tag: "",
+        tag: [],
         url: "",
         contents: "",
       });
@@ -160,7 +176,7 @@ function AddBookmarkInfo() {
 
     setBookmarkInfo({
       title: name,
-      tag: Tags[0].name,
+      tag: Tags.map((item) => item.name),
       url,
       contents: content,
     });
@@ -185,14 +201,6 @@ function AddBookmarkInfo() {
           onChange={bookmarkInfoHandler}
         />
         <input
-          name="tag"
-          value={bookmarkInfo.tag}
-          className="title-input"
-          type="text"
-          placeholder="TAG"
-          onChange={bookmarkInfoHandler}
-        />
-        <input
           name="url"
           value={bookmarkInfo.url}
           className="title-input"
@@ -200,6 +208,7 @@ function AddBookmarkInfo() {
           placeholder="URL"
           onChange={bookmarkInfoHandler}
         />
+        <Tag values={bookmarkInfo.tag} onChange={changeTags} />
       </div>
       <div id="cke-wrapper">
         <CKEditor
@@ -212,7 +221,6 @@ function AddBookmarkInfo() {
             isReadOnly: true,
           }}
         />
-        {/* </div> */}
       </div>
       <button
         className="submit-btn"
@@ -220,6 +228,11 @@ function AddBookmarkInfo() {
       >
         {isViewMode ? "수정" : "저장"}
       </button>
+      {selectData !== null ? (
+        <button className="submit-btn" onClick={moveFolder}>
+          이동
+        </button>
+      ) : null}
       {selectData !== null ? (
         <button className="submit-btn" onClick={closeEdit}>
           닫기

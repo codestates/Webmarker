@@ -1,6 +1,7 @@
 import {
   FILTER_BOOKMAKR,
   FILTER_TYPE,
+  MOVE_BOOKMARK,
   SELECT_BOOKMAKR,
 } from "../actions/selectBookmark";
 import { bookMarkInitialState } from "../reducers/initialState";
@@ -23,6 +24,12 @@ const bookmarkReducer = (state = bookMarkInitialState, action) => {
       return {
         ...state,
         filterType: action.payload,
+      };
+    }
+    case MOVE_BOOKMARK: {
+      return {
+        ...state,
+        isMoveMode: action.payload,
       };
     }
     default: {
