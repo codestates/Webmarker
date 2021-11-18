@@ -37,10 +37,30 @@ function SignUpPage() {
   };
   //비밀번호 일치여부 판단하는 함수
 
+  const validationConfirm = () => {
+    if (strongPassword(signUpInfo.password)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  //유효성체크해서 에러여부 리턴하는 함수
+
   const idMatchConfirm = () => {
-    setIsError(true);
+    if (isError) {
+      return true;
+    } else {
+      return false;
+    }
   };
   //ID가 이미 존재할 경우 작동하는 함수
+
+  function strongPassword(str) {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+      str
+    );
+  }
+  //비밀번호 유효성 검사
 
   const renderFeedbackMessage = () => {
     if (!passwordMatchConfirm()) {
@@ -52,14 +72,23 @@ function SignUpPage() {
   //오류메세지를 렌더하는 함수
 
   const renderIdCheckMessage = () => {
-    if (isError) {
+    if (idMatchConfirm()) {
       return <div className="invalid-feedback">이미 존재하는 아이디입니다</div>;
     }
   };
   //ID가 이미 존재할경우 아이디 입력칸 하단에 에러메시지 표시하는 함수
 
+  const renderValidationCheckMessage = () => {
+    if (signUpInfo.password !== "" && !validationConfirm()) {
+      return (
+        <div className="invalid-feedback">유효하지 않은 비밀번호입니다</div>
+      );
+    }
+  };
+
   const handleSignUp = () => {
     if (
+      strongPassword(signUpInfo.password) &&
       signUpInfo.password !== "" &&
       signUpInfo.passwordCheck !== "" &&
       signUpInfo.password === signUpInfo.passwordCheck
@@ -71,10 +100,11 @@ function SignUpPage() {
         })
         .then(() => {
           alert("회원가입 성공!");
-          console.log("회원가입 성공!");
           comeBackHome();
         })
-        .catch(() => idMatchConfirm());
+        .catch(() => {
+          setIsError(true);
+        });
     }
   };
   //회원가입 서버에 요청하는 함수
@@ -87,7 +117,7 @@ function SignUpPage() {
           <input
             className="signup-box"
             type="email"
-            placeholder="username"
+            placeholder="email"
             onChange={handleSignUpValue("email")}
           ></input>
           {renderIdCheckMessage()}
@@ -96,7 +126,7 @@ function SignUpPage() {
           <input
             className="signup-box"
             type="password"
-            placeholder="password"
+            placeholder="8자 이상, 영어, 숫자, 특수문자를 포함한 비밀번호"
             onChange={handleSignUpValue("password")}
           ></input>
         </div>
@@ -104,10 +134,11 @@ function SignUpPage() {
           <input
             className="signup-box"
             type="password"
-            placeholder="password 확인"
+            placeholder="비밀번호 확인"
             onChange={handleSignUpValue("passwordCheck")}
           ></input>
           {renderFeedbackMessage()}
+          {renderValidationCheckMessage()}
         </div>
         <div id="signup-btn-wrapper">
           <button className="signup-btn" onClick={handleSignUp}>
