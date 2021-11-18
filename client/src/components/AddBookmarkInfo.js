@@ -191,8 +191,6 @@ function AddBookmarkInfo() {
       >
         Bookmark Info
       </div>
-      {/* <div className={`disable-wrapper ${isViewMode ? "isView" : ""}`}> */}
-      {/* {isViewMode ? <div className="disable-background" /> : null} */}
       <div className="form-wrapper">
         <input
           name="title"
@@ -211,6 +209,7 @@ function AddBookmarkInfo() {
           onChange={bookmarkInfoHandler}
         />
         <Tag values={bookmarkInfo.tag} onChange={changeTags} />
+        {isViewMode ? <div className={`disable-wrapper`}></div> : null}
       </div>
       <div id="cke-wrapper">
         <CKEditor

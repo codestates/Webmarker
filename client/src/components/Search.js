@@ -33,7 +33,11 @@ function Search({ onSearch, onReset }) {
           value={keyword}
           placeholder="북마크 검색"
         />
-        {existOnReset ? <span onClick={resetHandler}>X</span> : null}
+        {existOnReset ? (
+          <span id="reset-btn" onClick={resetHandler}>
+            x
+          </span>
+        ) : null}
       </div>
       <button id="search-btn" onClick={clickHandler}>
         <FontAwesomeIcon icon={faSearch} color="#641eac" id="search-icon" />
