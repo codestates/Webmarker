@@ -51,7 +51,7 @@ export default function Login() {
         <div>
           <input
             type="email"
-            placeholder="username"
+            placeholder="email"
             className="login-box"
             onChange={handleLoginInfo("email")}
           ></input>
