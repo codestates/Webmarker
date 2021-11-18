@@ -14,27 +14,24 @@ function MainPage() {
   const handleOnMyPage = (value) => {
     setOnMyPage(value);
     axios
-      .get(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users/userinfo",
-        {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .get("https://server.webmarker.link/users/userinfo", {
+        headers: {
+          authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
-        // console.log(res.data);
         setUserId(res.data.data.email);
       });
   };
+  //회원정보 불러오는 함수
 
   return (
-    <section>
+    <section id="main-page-wrapper">
       <Nav handleOnMyPage={handleOnMyPage} />
       {onMyPage ? (
         <UserInfo handleOnMyPage={handleOnMyPage} userId={userId} />
       ) : (
-        <center id="mainpage-wrapper">
+        <center id="table-wrapper">
           <BookmarkList />
           <AddBookmarkInfo />
         </center>

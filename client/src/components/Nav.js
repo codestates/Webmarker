@@ -33,21 +33,17 @@ export default function Nav({ handleOnMyPage }) {
 
   const handleLogout = () => {
     dispatch(logoutChange());
-    axios.post(
-      "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com//users/logout",
-      {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-        },
-      }
-    );
+    axios.post("https://server.webmarker.link//users/logout", {
+      headers: {
+        authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    });
     window.localStorage.removeItem("token");
-    //토큰삭제
     window.localStorage.removeItem("email");
     window.localStorage.removeItem("password");
+    //로컬스토리지에서 토큰, 아이디, 비밀번호삭제
   };
   //로그아웃 실행함수
-  // const resetHandler = () =>
 
   return (
     <div id="title-bar">

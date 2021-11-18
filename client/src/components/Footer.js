@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div id="footer">
+    <center id="footer">
       <span className="footer-text">Copyright</span>
       <span>
         <img
@@ -12,6 +12,6 @@ export default function Footer() {
       </span>
       {/* <span id="footer-title"> WebMarker </span> */}
       <span className="footer-text">All Rights Reserved.</span>
-    </div>
+    </center>
   );
 }

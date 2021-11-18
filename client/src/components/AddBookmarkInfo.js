@@ -212,22 +212,24 @@ function AddBookmarkInfo() {
         />
         {/* </div> */}
       </div>
-      <button
-        className="submit-btn"
-        onClick={isViewMode ? setEditMode : submitReview}
-      >
-        {isViewMode ? "수정" : "저장"}
-      </button>
-      {selectData !== null ? (
-        <button className="submit-btn" onClick={closeEdit}>
-          닫기
+      <div id="submit-btn-wrapper">
+        <button
+          className="submit-btn"
+          onClick={isViewMode ? setEditMode : submitReview}
+        >
+          {isViewMode ? "수정" : "저장"}
         </button>
-      ) : null}
-      {selectData !== null ? (
-        <button id="delete" className="submit-btn" onClick={removeBookmark}>
-          삭제
-        </button>
-      ) : null}
+        {selectData !== null ? (
+          <button className="submit-btn" onClick={closeEdit}>
+            닫기
+          </button>
+        ) : null}
+        {selectData !== null ? (
+          <button id="delete" className="submit-btn" onClick={removeBookmark}>
+            삭제
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }

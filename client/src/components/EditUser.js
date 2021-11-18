@@ -28,14 +28,11 @@ export default function EditUser({ handlePassword, handleChangePassowrd }) {
   const deleteConfirm = () => {
     console.log("삭제했습니다.");
     axios
-      .delete(
-        "http://ec2-54-180-96-63.ap-northeast-2.compute.amazonaws.com/users",
-        {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .delete("https://server.webmarker.link//users", {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
       .then(() => {
         dispatch(logoutChange());
         alert("계정삭제가 정상적으로 처리되었습니다");

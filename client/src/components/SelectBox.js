@@ -7,6 +7,7 @@ const SelectBox = ({ options, onSelect }) => {
     <select className="select-box">
       {options.map((option, idx) => (
         <option
+          key={idx}
           onClick={() => {
             onSelect(option.value);
             setSelectIdx(idx);

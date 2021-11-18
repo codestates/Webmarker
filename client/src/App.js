@@ -12,6 +12,20 @@ function App() {
   const loginState = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
 
+  // const getAccessToken = () => {
+  // const URL = "https://server.webmarker.link/users/auth/google/callback";
+  // await axios.get(URL).then((res) => {
+  //   window.localStorage.setItem("token", res.cookie.accessToken);
+  //   console.log(res);
+  //   dispatch(loginChange());
+  // });
+  //   alert(document.cookie);
+  // };
+
+  // useEffect(() => {
+  //   getAccessToken();
+  // }, []);
+
   const keepLogin = () => {
     if (
       window.localStorage.getItem("email") &&
@@ -20,6 +34,7 @@ function App() {
       dispatch(loginChange());
     }
   };
+  //로그인 유지를 위한 함수
 
   useEffect(() => {
     keepLogin();

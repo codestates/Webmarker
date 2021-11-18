@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
 export const TagsInput = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   width: 70%;
-  min-height: 3.2rem;
+  height: 3.2rem;
   padding: 0 8px;
   border: 0.1rem solid #acacac;
   box-shadow: inset 0.01rem 0.01rem rgba(0, 0, 0, 0.8);
   border-radius: 0.3rem;
   margin: 0.3rem;
+  overflow: auto;
 
   > ul {
     display: flex;
@@ -84,6 +84,7 @@ export default function Tag({ taginfo }) {
       })
     );
   };
+  //태그제거함수
 
   const addTags = (event) => {
     if (tags.includes(event.target.value)) {
@@ -96,6 +97,7 @@ export default function Tag({ taginfo }) {
       event.target.value = "";
     }
   };
+  //태그추가함수
 
   return (
     <>
@@ -119,7 +121,7 @@ export default function Tag({ taginfo }) {
           onKeyUp={(e) => {
             if (e.key === "Enter") addTags(e);
           }}
-          placeholder="Tag"
+          placeholder="엔터로 태그 입력"
         />
       </TagsInput>
     </>
