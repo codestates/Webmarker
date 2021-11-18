@@ -5,8 +5,6 @@ const db = require("../../models");
 const {
   generateAccessToken,
   checkAccessToken,
-  generateRefreshToken,
-  checkRefreshToken,
 } = require("../tokenFunction");
 const { isExistSnsId, snsSignUp } = require("../oauthFunction");
 
@@ -16,7 +14,7 @@ const GOOGLE_AUTH_URL =
   "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_AUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_AUTH_REDIRECT_URL =
-  "https://server.webmarker.link/users/auth/google/callback";
+  "http://localhost:8080/users/auth/google/callback";
 
 module.exports = {
   test: (req, res) => {
@@ -197,16 +195,16 @@ module.exports = {
 
       let accessToken;
       if (userId) {
-        refreshToken = generateRefreshToken({
+        accessToken = generateAccessToken({
           id: userId,
           email,
         });
       } else {
         const signUpGoogle = await snsSignUp(userInfo);
-        refreshToken = generateRefreshToken(signUpGoogle);
+        accessToken = generateRefreshToken(signUpGoogle);
       }
       res
-        .cookie("refreshToken", refreshToken, {
+        .cookie("accessToken", accessToken, {
           domain: "webmarker.link",
           httpOnly: true,
         })
@@ -219,26 +217,11 @@ module.exports = {
   },
   // refreshToken -> accessToken 클라이언트에 전달
   sendToken: (req, res) => {
-    const { refreshToken } = req.cookies;
-    try {
-      const tokenData = checkRefreshToken(refreshToken);
+    const { accessToken } = req.cookies;
 
-      if (tokenData) {
-        const accessToken = generateAccessToken(tokenData);
-        res.status(200).send({
-          data: {
-            accessToken,
-          },
-          message: "ok",
-        });
-      } else {
-        res.status(401).send({
-          data: null,
-          message: "잘못된 토큰 정보입니다",
-        });
-      }
-    } catch (err) {
-      res.status(500).send({ data: null, message: err });
-    }
+    res.status(201).send({
+      data: { accessToken },
+      message: "잘못된 토큰 정보입니다",
+    });
   },
 };
