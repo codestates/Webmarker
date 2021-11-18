@@ -69,7 +69,7 @@ module.exports = {
   },
   deleteFolder: async (req, res) => {
     // 첫번째 바디로 정확한 데이터를 보냈는가?
-    const { id } = req.body;
+    const { id } = req.params;
     if (!id)
       res.status(400).send({
         data: null,
