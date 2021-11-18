@@ -45,6 +45,7 @@ function AddBookmarkInfo() {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
+
       .then((response) => {
         const folder = response.data.data.folders;
         dispatch(setFolders(folder));
@@ -132,6 +133,7 @@ function AddBookmarkInfo() {
   const closeEdit = () => {
     setIsEditMode(false);
     dispatch(selectBookmark(null));
+
     dispatch(moveBookmark(false));
     setBookmarkInfo({
       ...bookmarkInfo,
@@ -209,6 +211,7 @@ function AddBookmarkInfo() {
           onChange={bookmarkInfoHandler}
         />
         <Tag values={bookmarkInfo.tag} onChange={changeTags} />
+
       </div>
       <div id="cke-wrapper">
         <CKEditor

@@ -2,19 +2,15 @@ const dotenv = require("dotenv");
 const axios = require("axios");
 const { token } = require("morgan");
 const db = require("../../models");
-const {
-  generateAccessToken,
-  checkAccessToken,
-} = require("../tokenFunction");
+const { generateAccessToken, checkAccessToken } = require("../tokenFunction");
 const { isExistSnsId, snsSignUp } = require("../oauthFunction");
 
 dotenv.config();
 
-const GOOGLE_AUTH_URL =
-  "https://accounts.google.com/o/oauth2/v2/auth";
+const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_AUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_AUTH_REDIRECT_URL =
-  "http://localhost:8080/users/auth/google/callback";
+  "https://server.webmarker.link/users/auth/google/callback";
 
 module.exports = {
   test: (req, res) => {
@@ -113,10 +109,7 @@ module.exports = {
     const tokenData = checkAccessToken(req);
     const { id } = tokenData;
     const { password } = req.body;
-    const userData = await db.User.update(
-      { password },
-      { where: { id } }
-    );
+    const userData = await db.User.update({ password }, { where: { id } });
     console.log(userData);
     if (!userData) {
       res.status(400).send({
@@ -167,8 +160,7 @@ module.exports = {
         method: "POST",
         url: `${GOOGLE_AUTH_TOKEN_URL}`,
         headers: {
-          "content-type":
-            "application/x-www-form-urlencoded;charset=utf-8",
+          "content-type": "application/x-www-form-urlencoded;charset=utf-8",
         },
         params: {
           grant_type: "authorization_code", //특정 스트링
@@ -188,10 +180,7 @@ module.exports = {
         sns_id: sub,
         type: "google",
       };
-      const userId = await isExistSnsId(
-        userInfo.type,
-        userInfo.sns_id
-      );
+      const userId = await isExistSnsId(userInfo.type, userInfo.sns_id);
 
       if (userId) {
         const accessToken = generateAccessToken({
@@ -208,11 +197,9 @@ module.exports = {
           httpOnly: true,
         });
       }
-      res.redirect("http://localhost:3000");
+      res.redirect("http://webmarker.link");
     } catch (err) {
-      res
-        .status(500)
-        .json({ data: null, message: "internal server err" });
+      res.status(500).json({ data: null, message: "internal server err" });
     }
   },
 };
