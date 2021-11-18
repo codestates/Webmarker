@@ -14,21 +14,21 @@ module.exports = {
     return queryInterface.bulkInsert("Bookmarks", [
       {
         name: "NAVER!",
-        url: "www.naver.com",
+        url: "https://www.naver.com",
         content: "세상의 모든 지식",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Google!",
-        url: "www.google.com",
+        url: "https://www.google.com",
         content: "구글은 신이다",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Daum!",
-        url: "www.daum.net",
+        url: "https://www.daum.net",
         content: "다음은 다음에",
         createdAt: new Date(),
         updatedAt: new Date(),
